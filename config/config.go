@@ -8,13 +8,14 @@
 // THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
 // See the Mulan PSL v2 for more details.
 
-package galang
+package config
 
 import (
 	"bytes"
 	"encoding/json"
 	"errors"
 	"io/ioutil"
+	"std/file"
 	"strings"
 	"text/template"
 
@@ -42,7 +43,7 @@ func ReadConfigFile(path string) (Config, error) {
 		return nil, err
 	}
 
-	if json.Valid(b) {
+	if file.File.IsJSONByte(b) {
 		var m map[string]interface{}
 		if err := json.Unmarshal(b, &m); err != nil {
 			return nil, err
@@ -55,12 +56,11 @@ func ReadConfigFile(path string) (Config, error) {
 	}
 
 	doc := etree.NewDocument()
-	if err := doc.ReadFromBytes(b); err == nil {
+	if file.File.IsXmlByte(b) {
 		result := &XmlConfig{
 			Xml:  doc,
 			Xmlb: b,
 		}
-
 		return result, nil
 	}
 
