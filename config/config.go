@@ -1,5 +1,5 @@
 // Galang - Golang common utilities
-// Copyright (c) 2019-present, gakkiiyomi@gamil.com
+// Copyright (c) 2020-present, gakkiiyomi@gamil.com
 //
 // gakkiyomi is licensed under Mulan PSL v2.
 // You can use this software according to the terms and conditions of the Mulan PSL v2.

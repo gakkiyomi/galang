@@ -1,5 +1,5 @@
 // Galang - Golang common utilities
-// Copyright (c) 2019-present, gakkiiyomi@gamil.com
+// Copyright (c) 2020-present, gakkiiyomi@gamil.com
 //
 // gakkiyomi is licensed under Mulan PSL v2.
 // You can use this software according to the terms and conditions of the Mulan PSL v2.
@@ -19,13 +19,9 @@ import (
 	"github.com/songtianyi/rrframework/logs"
 )
 
-type (
-	GalangFile byte
-)
+type GalangFile byte
 
-var (
-	File GalangFile
-)
+var File GalangFile
 
 //get the length in bytes of file of the specified path.
 func (*GalangFile) GetFileSize(path string) int64 {
