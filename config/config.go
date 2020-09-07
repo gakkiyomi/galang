@@ -15,11 +15,11 @@ import (
 	"encoding/json"
 	"errors"
 	"io/ioutil"
-	"std/file"
 	"strings"
 	"text/template"
 
 	"github.com/beevik/etree"
+	"github.com/gakkiyomi/galang/file"
 )
 
 type Config interface {
