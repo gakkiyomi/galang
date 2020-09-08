@@ -12,13 +12,38 @@ package net
 
 import (
 	"errors"
+	"fmt"
+	"net"
+	"regexp"
+	"strings"
 
 	"github.com/gakkiyomi/galang/utils"
 )
 
-func (*GalangNet) NetmaskToCIDR(mask string) (int, error) {
-	//TODO
-	return 0, nil
+func (*GalangNet) NetmaskToCIDR(netmask string) (int, error) {
+
+	re := regexp.MustCompile(`(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}`)
+
+	if re.MatchString(netmask) == false {
+		return 0, fmt.Errorf("netmask:%v is not valid, pattern should like: 255.255.255.0", netmask)
+	}
+
+	ipSplitArr := strings.Split(netmask, ".")
+
+	ipv4MaskArr := make([]byte, 4)
+	for i, value := range ipSplitArr {
+		intValue, err := utils.Transform.StringToInt(value)
+		if err != nil {
+			return 0, fmt.Errorf("ipMaskToInt call strconv.Atoi error:[%v] string value is: [%s]", err, value)
+		}
+		if intValue > 255 {
+			return 0, fmt.Errorf("netmask cannot greater than 255, current value is: [%s]", value)
+		}
+		ipv4MaskArr[i] = byte(intValue)
+	}
+
+	ones, _ := net.IPv4Mask(ipv4MaskArr[0], ipv4MaskArr[1], ipv4MaskArr[2], ipv4MaskArr[3]).Size()
+	return ones, nil
 }
 
 func (*GalangNet) CIDRToNetmask(cidr int) (string, error) {
@@ -43,4 +68,8 @@ func (*GalangNet) CIDRToNetmask(cidr int) (string, error) {
 		dmask -= 8
 	}
 	return localmask, nil
+}
+
+func (*GalangNet) Long2ip(ip uint32) string {
+	return fmt.Sprintf("%d.%d.%d.%d", ip>>24, ip<<8>>24, ip<<16>>24, ip<<24>>24)
 }
