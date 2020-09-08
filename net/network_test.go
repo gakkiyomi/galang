@@ -17,7 +17,7 @@ import (
 )
 
 func TestCIDRToNetmask(t *testing.T) {
-	mask, err := Net.CIDRToNetmask(19)
+	mask, err := Network.CIDRToNetmask(19)
 	if err != nil {
 		t.Error(err.Error())
 	}
@@ -26,7 +26,7 @@ func TestCIDRToNetmask(t *testing.T) {
 }
 
 func TestNetmaskToCIDR(t *testing.T) {
-	cidr_suffix, err := Net.NetmaskToCIDR("255.255.255.0")
+	cidr_suffix, err := Network.NetmaskToCIDR("255.255.255.0")
 	if err != nil {
 		t.Error(err.Error())
 	}
@@ -36,13 +36,13 @@ func TestNetmaskToCIDR(t *testing.T) {
 
 func TestLong2ip(t *testing.T) {
 
-	cidr_suffix := Net.Long2ip(3232235521)
+	cidr_suffix := Network.Long2ip(3232235521)
 	assert.Equal(t, "192.168.0.1", cidr_suffix, "The two item should be the same.")
 }
 
 func TestIP2long(t *testing.T) {
 
-	l, err := Net.IP2long("192.168.0.1")
+	l, err := Network.IP2long("192.168.0.1")
 	if err != nil {
 		t.Error(err.Error())
 	}

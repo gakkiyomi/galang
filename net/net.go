@@ -10,6 +10,14 @@
 
 package net
 
-type GalangNet byte
+type (
+	GalangNet    byte
+	GalangHttp   byte
+	GalangSocket byte
+)
 
-var Net GalangNet
+var (
+	Network GalangNet
+	Http    GalangHttp
+	Socket  GalangSocket
+)

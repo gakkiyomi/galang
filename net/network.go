@@ -17,6 +17,7 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/dselans/dmidecode"
 	"github.com/gakkiyomi/galang/utils"
 )
 
@@ -90,4 +91,44 @@ func (*GalangNet) IP2long(ipstr string) (uint32, error) {
 	}
 	ip = ip.To4()
 	return binary.BigEndian.Uint32(ip), nil
+}
+
+// if addr is range of cidr returns true
+func (*GalangNet) IsSubnet(addr, cidr string) (bool, error) {
+	ip := net.ParseIP(addr)
+	_, sub_net, err := net.ParseCIDR(cidr)
+	if err != nil {
+		return false, fmt.Errorf("prase cidr %v failed", cidr)
+	}
+	if sub_net.Contains(ip) {
+		return true, nil
+	}
+	return false, nil
+}
+
+//get local ip
+func (*GalangNet) GetLocalIp() (string, error) {
+	interface_addrs, err := net.InterfaceAddrs()
+	if err != nil {
+		return "", err
+	}
+	for _, addr := range interface_addrs {
+		if ipnet, ok := addr.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
+			if nil != ipnet.IP.To4() {
+				return ipnet.IP.String(), nil
+			}
+		}
+	}
+	return "", fmt.Errorf("can't get local IP")
+}
+
+func (*GalangNet) GetSystemUUID_Linux() {
+	dmi := dmidecode.New()
+
+	if err := dmi.Run(); err != nil {
+		fmt.Printf("Unable to get dmidecode information. Error: %v\n", err)
+	}
+
+	byNameData, _ := dmi.SearchByName("UUID")
+	fmt.Println("uuid2: %v ", byNameData)
 }
