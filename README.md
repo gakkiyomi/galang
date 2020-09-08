@@ -20,6 +20,8 @@
 * CIDR转子网掩码
 * Long类型IP转IP字符串
 * IP字符串转Long类型IP
+* 判断一个IP地址是否在一个网段内
+* 获取本机dmidecode唯一标识UUID(linux)
 
 ### 字符串 `utils.String`
 
