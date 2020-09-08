@@ -67,3 +67,12 @@ func TestIsSubnet(t *testing.T) {
 	}
 	assert.Equal(t, false, l, "The two item should be the same.")
 }
+
+func TestGetCIDRAvailableAddrList(t *testing.T) {
+
+	l, err := Network.GetCIDRAvailableAddrList("192.168.1.0/24")
+	if err != nil {
+		t.Error(err.Error())
+	}
+	assert.Equal(t, 254, len(l), "The two item should be the same.")
+}
