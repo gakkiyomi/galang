@@ -106,29 +106,20 @@ func (*GalangNet) IsSubnet(addr, cidr string) (bool, error) {
 	return false, nil
 }
 
-//get local ip
-func (*GalangNet) GetLocalIp() (string, error) {
-	interface_addrs, err := net.InterfaceAddrs()
-	if err != nil {
-		return "", err
-	}
-	for _, addr := range interface_addrs {
-		if ipnet, ok := addr.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
-			if nil != ipnet.IP.To4() {
-				return ipnet.IP.String(), nil
-			}
-		}
-	}
-	return "", fmt.Errorf("can't get local IP")
-}
-
-func (*GalangNet) GetSystemUUID_Linux() {
+//get linux dmidecode -s system-uuid
+func (*GalangNet) GetSystemUUID_Linux() (string, error) {
 	dmi := dmidecode.New()
 
 	if err := dmi.Run(); err != nil {
-		fmt.Printf("Unable to get dmidecode information. Error: %v\n", err)
+		return "", fmt.Errorf("Unable to get dmidecode information. Error: %v\n", err)
 	}
+	system_info, _ := dmi.SearchByName("System Information")
 
-	byNameData, _ := dmi.SearchByName("UUID")
-	fmt.Println("uuid2: %v ", byNameData)
+	for _, v := range system_info {
+		if _, ok := v["UUID"]; ok {
+			return v["UUID"], nil
+		}
+
+	}
+	return "", fmt.Errorf("can't get system uuid")
 }
