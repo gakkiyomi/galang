@@ -76,3 +76,14 @@ func TestGetCIDRAvailableAddrList(t *testing.T) {
 	}
 	assert.Equal(t, 254, len(l), "The two item should be the same.")
 }
+
+func TestLPM(t *testing.T) {
+
+	sbnts := []string{`192.168.1.0/24`, `192.168.0.0/16`, `192.0.0.0/8`, `192.168.2.0/24`}
+
+	cidr, err := Network.LPM("192.168.1.2", sbnts)
+	if err != nil {
+		t.Error(err.Error())
+	}
+	assert.Equal(t, `192.168.1.0/24`, cidr, "The two item should be the same.")
+}

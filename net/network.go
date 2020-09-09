@@ -151,3 +151,35 @@ func inc(ip net.IP) {
 		}
 	}
 }
+
+// return Longest prefix match
+func (n *GalangNet) LPM(ip string, subnets []string) (string, error) {
+	var filter []string
+	for _, cidr := range subnets {
+		b, err := n.IsSubnet(ip, cidr)
+		if err != nil || b == false {
+			continue
+		}
+		filter = append(filter, cidr)
+	}
+	if len(filter) == 0 {
+		return "", fmt.Errorf("longest prefix match fail in %v", subnets)
+	}
+
+	maxVal := filter[0]
+
+	for i := 1; i < len(filter); i++ {
+
+		_, ipnet_max, _ := net.ParseCIDR(maxVal)
+		_, ipnet_i, _ := net.ParseCIDR(filter[i])
+
+		max, _ := ipnet_max.Mask.Size()
+		vi, _ := ipnet_i.Mask.Size()
+
+		if max < vi {
+			maxVal = filter[i]
+		}
+
+	}
+	return maxVal, nil
+}
