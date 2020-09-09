@@ -3,6 +3,10 @@
 
 [Galang](https://github.com/gakkiyomi/galang) 是一款 Go 语言常用工具库。
 
+## 使用
+   1. 直接在go.mod中引用
+   2. `GOPROXY=direct go get -u github.com/gakkiyomi/galang`
+
 ## ✨ 功能
 
 ### 文件操作 `file.File`
