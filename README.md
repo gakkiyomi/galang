@@ -28,6 +28,7 @@
 * 获取本机dmidecode唯一标识UUID(linux)
 * 获取一个网段下所有可用地址(排除广播地址和网络地址)
 * IP最长前缀匹配算法(LPM)
+* 获取cidr的网络位和广播位
 
 ### 字符串 `utils.String`
 

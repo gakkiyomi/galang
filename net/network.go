@@ -21,10 +21,64 @@ import (
 	"github.com/gakkiyomi/galang/utils"
 )
 
+const (
+	IP_REG   = `(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}`
+	CIDR_REG = `((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)(\[[^\[\].;\s]{1,100}\]|)/(1[0-9]|2[0-9]|3[0-2]|[0-9])`
+)
+
+type SubnetInfo struct {
+	Netmask   uint32 //子网掩码
+	Network   uint32 //网络位
+	Address   uint32 //IP地址
+	Broadcast uint32 //广播位
+}
+
+func NewSubnetInfo(cidr string) (*SubnetInfo, error) {
+
+	re := regexp.MustCompile(CIDR_REG)
+
+	if re.MatchString(cidr) == false {
+		return nil, fmt.Errorf("cidr:%v is not valid, pattern should like: 192.168.1.0/24", cidr)
+	}
+
+	_, sub, _ := net.ParseCIDR(cidr)
+
+	cidr_sr, _ := sub.Mask.Size()
+	suffix, _ := Network.CIDRToNetmask(cidr_sr)
+
+	longIp, _ := Network.IP2long(sub.IP.String())
+	longMask, _ := Network.IP2long(suffix)
+	netwrok_addr := (longIp & longMask)
+	broadcast_addr := netwrok_addr | (^longMask)
+
+	return &SubnetInfo{
+		Address:   longIp,
+		Netmask:   longMask,
+		Network:   netwrok_addr,
+		Broadcast: broadcast_addr,
+	}, nil
+}
+
+func (sub *SubnetInfo) AddressString() string {
+	return Network.Long2ip(sub.Address)
+}
+
+func (sub *SubnetInfo) NetmaskString() string {
+	return Network.Long2ip(sub.Netmask)
+}
+
+func (sub *SubnetInfo) NetworkString() string {
+	return Network.Long2ip(sub.Network)
+}
+
+func (sub *SubnetInfo) BradcastString() string {
+	return Network.Long2ip(sub.Broadcast)
+}
+
 // 255.255.255.0 >>> 24
 func (*GalangNet) NetmaskToCIDR(netmask string) (int, error) {
 
-	re := regexp.MustCompile(`(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}`)
+	re := regexp.MustCompile(IP_REG)
 
 	if re.MatchString(netmask) == false {
 		return 0, fmt.Errorf("netmask:%v is not valid, pattern should like: 255.255.255.0", netmask)
@@ -79,7 +133,7 @@ func (*GalangNet) Long2ip(ip uint32) string {
 
 func (*GalangNet) IP2long(ipstr string) (uint32, error) {
 
-	re := regexp.MustCompile(`(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}`)
+	re := regexp.MustCompile(IP_REG)
 
 	if re.MatchString(ipstr) == false {
 		return 0, fmt.Errorf("ip:%v is not valid, pattern should like: 192.168.1.1", ipstr)

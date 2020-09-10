@@ -87,3 +87,15 @@ func TestLPM(t *testing.T) {
 	}
 	assert.Equal(t, `192.168.1.0/24`, cidr, "The two item should be the same.")
 }
+
+func TestSubnetInfo(t *testing.T) {
+
+	info, err := NewSubnetInfo(`192.168.0.0/17`)
+	if err != nil {
+		t.Error(err.Error())
+	}
+	assert.Equal(t, `192.168.0.0`, info.AddressString(), "The two item should be the same.")
+	assert.Equal(t, `255.255.128.0`, info.NetmaskString(), "The two item should be the same.")
+	assert.Equal(t, `192.168.0.0`, info.NetworkString(), "The two item should be the same.")
+	assert.Equal(t, `192.168.127.255`, info.BradcastString(), "The two item should be the same.")
+}
