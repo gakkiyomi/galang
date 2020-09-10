@@ -23,7 +23,7 @@ import (
 
 const (
 	IP_REG   = `(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}`
-	CIDR_REG = `((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)(\[[^\[\].;\s]{1,100}\]|)/(1[0-9]|2[0-9]|3[0-2]|[0-9])`
+	CIDR_REG = `^((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)(\[[^\[\].;\s]{1,100}\]|)/(1[0-9]|2[0-9]|3[0-2]|[0-9])$`
 )
 
 type SubnetInfo struct {
@@ -35,9 +35,8 @@ type SubnetInfo struct {
 
 func NewSubnetInfo(cidr string) (*SubnetInfo, error) {
 
-	re := regexp.MustCompile(CIDR_REG)
-
-	if re.MatchString(cidr) == false {
+	b, _ := regexp.MatchString(CIDR_REG, cidr)
+	if b == false {
 		return nil, fmt.Errorf("cidr:%v is not valid, pattern should like: 192.168.1.0/24", cidr)
 	}
 
