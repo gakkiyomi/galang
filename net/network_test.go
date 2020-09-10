@@ -59,9 +59,9 @@ func TestGetSystemUUID_Linux(t *testing.T) {
 	assert.Equal(t, "5F190D42-AD0F-D15F-28C4-44C5A755338C", l, "The two item should be the same.")
 }
 
-func TestIsSubnet(t *testing.T) {
+func TestIsRangeOf(t *testing.T) {
 
-	l, err := Network.IsSubnet("192.167.21.1", "192.168.1.0/16")
+	l, err := Network.IsRangeOf("192.167.21.1", "192.168.1.0/16")
 	if err != nil {
 		t.Error(err.Error())
 	}

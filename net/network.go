@@ -94,7 +94,7 @@ func (*GalangNet) IP2long(ipstr string) (uint32, error) {
 }
 
 // if addr is range of cidr returns true
-func (*GalangNet) IsSubnet(addr, cidr string) (bool, error) {
+func (*GalangNet) IsRangeOf(addr, cidr string) (bool, error) {
 	ip := net.ParseIP(addr)
 	_, sub_net, err := net.ParseCIDR(cidr)
 	if err != nil {
@@ -156,7 +156,7 @@ func inc(ip net.IP) {
 func (n *GalangNet) LPM(ip string, subnets []string) (string, error) {
 	var filter []string
 	for _, cidr := range subnets {
-		b, err := n.IsSubnet(ip, cidr)
+		b, err := n.IsRangeOf(ip, cidr)
 		if err != nil || b == false {
 			continue
 		}
