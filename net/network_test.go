@@ -50,15 +50,14 @@ func TestIP2long(t *testing.T) {
 }
 
 //must be linux
-func TestGetSystemUUID_Linux(t *testing.T) {
+/*func TestGetSystemUUID_Linux(t *testing.T) {
 
 	l, err := Network.GetSystemUUID_Linux()
 	if err != nil {
 		t.Error(err.Error())
 	}
 	assert.Equal(t, "5F190D42-AD0F-D15F-28C4-44C5A755338C", l, "The two item should be the same.")
-}
-
+}*/
 func TestIsRangeOf(t *testing.T) {
 
 	l, err := Network.IsRangeOf("192.167.21.1", "192.168.1.0/16")
