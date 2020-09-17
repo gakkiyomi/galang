@@ -17,7 +17,7 @@ import (
 )
 
 func TestCIDRToNetmask(t *testing.T) {
-	mask, err := Network.CIDRToNetmask(19)
+	mask, err := Network.MaskLengthToNetmask(19)
 	if err != nil {
 		t.Error(err.Error())
 	}
@@ -26,7 +26,7 @@ func TestCIDRToNetmask(t *testing.T) {
 }
 
 func TestNetmaskToCIDR(t *testing.T) {
-	cidr_suffix, err := Network.NetmaskToCIDR("255.255.255.0")
+	cidr_suffix, err := Network.NetmaskToMaskLength("255.255.255.0")
 	if err != nil {
 		t.Error(err.Error())
 	}

@@ -43,7 +43,7 @@ func NewSubnetInfo(cidr string) (*SubnetInfo, error) {
 	_, sub, _ := net.ParseCIDR(cidr)
 
 	cidr_sr, _ := sub.Mask.Size()
-	suffix, _ := Network.CIDRToNetmask(cidr_sr)
+	suffix, _ := Network.MaskLengthToNetmask(cidr_sr)
 
 	longIp, _ := Network.IP2long(sub.IP.String())
 	longMask, _ := Network.IP2long(suffix)
@@ -75,7 +75,7 @@ func (sub *SubnetInfo) BradcastString() string {
 }
 
 // 255.255.255.0 >>> 24
-func (*GalangNet) NetmaskToCIDR(netmask string) (int, error) {
+func (*GalangNet) NetmaskToMaskLength(netmask string) (int, error) {
 
 	re := regexp.MustCompile(IP_REG)
 
@@ -102,7 +102,7 @@ func (*GalangNet) NetmaskToCIDR(netmask string) (int, error) {
 }
 
 // 24 >>> 255.255.255.0
-func (*GalangNet) CIDRToNetmask(cidr int) (string, error) {
+func (*GalangNet) MaskLengthToNetmask(cidr int) (string, error) {
 
 	if cidr < 0 || cidr > 32 {
 		return "", fmt.Errorf("cidr must be less than 32 and greater than 0")
