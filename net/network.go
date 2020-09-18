@@ -22,56 +22,122 @@ import (
 )
 
 const (
-	IP_REG   = `(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}`
-	CIDR_REG = `^((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)(\[[^\[\].;\s]{1,100}\]|)/(1[0-9]|2[0-9]|3[0-2]|[0-9])$`
+	IP_REG        = `^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$`
+	CIDR_REG      = `^((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)(\[[^\[\].;\s]{1,100}\]|)/(1[0-9]|2[0-9]|3[0-2]|[0-9])$`
+	FULL_CIDR_REG = `^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])[\/](([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$`
 )
 
 type SubnetInfo struct {
-	Netmask   uint32 //子网掩码
-	Network   uint32 //网络位
-	Address   uint32 //IP地址
-	Broadcast uint32 //广播位
+	netmask   uint32 //子网掩码
+	network   uint32 //网络位
+	address   uint32 //IP地址
+	broadcast uint32 //广播位
+	cidr      string
+	full_cidr string
 }
 
 func NewSubnetInfo(cidr string) (*SubnetInfo, error) {
 
 	b, _ := regexp.MatchString(CIDR_REG, cidr)
+	c, _ := regexp.MatchString(FULL_CIDR_REG, cidr)
+
+	var full_cidr string
+
 	if b == false {
-		return nil, fmt.Errorf("cidr:%v is not valid, pattern should like: 192.168.1.0/24", cidr)
+
+		if c == false {
+			return nil, fmt.Errorf("cidr:%v is not valid, pattern should like: 192.168.1.0/24 or 192.168.1.0/255.255.255.0", cidr)
+		}
+
+		full_cidr = cidr
+
+		str := strings.Split(cidr, "/")
+		addr := str[0]
+		mask := str[1]
+		mask_length, _ := Network.NetmaskToMaskLength(mask)
+		cidr = addr + "/" + utils.Transform.IntToString(mask_length)
 	}
+
+	str := strings.Split(cidr, "/")
+	addr := str[0]
+	mask_length, _ := utils.Transform.StringToInt(str[1])
+	mask, _ := Network.MaskLengthToNetmask(mask_length)
+	full_cidr = addr + "/" + mask
 
 	_, sub, _ := net.ParseCIDR(cidr)
 
 	cidr_sr, _ := sub.Mask.Size()
 	suffix, _ := Network.MaskLengthToNetmask(cidr_sr)
 
-	longIp, _ := Network.IP2long(sub.IP.String())
-	longMask, _ := Network.IP2long(suffix)
+	longIp, _ := iP2long(sub.IP.String())
+	longMask, _ := iP2long(suffix)
 	netwrok_addr := (longIp & longMask)
 	broadcast_addr := netwrok_addr | (^longMask)
 
 	return &SubnetInfo{
-		Address:   longIp,
-		Netmask:   longMask,
-		Network:   netwrok_addr,
-		Broadcast: broadcast_addr,
+		address:   longIp,
+		netmask:   longMask,
+		network:   netwrok_addr,
+		broadcast: broadcast_addr,
+		cidr:      cidr,
+		full_cidr: full_cidr,
 	}, nil
 }
 
 func (sub *SubnetInfo) AddressString() string {
-	return Network.Long2ip(sub.Address)
+	return Network.Long2ip(sub.address)
 }
 
 func (sub *SubnetInfo) NetmaskString() string {
-	return Network.Long2ip(sub.Netmask)
+	return Network.Long2ip(sub.netmask)
 }
 
 func (sub *SubnetInfo) NetworkString() string {
-	return Network.Long2ip(sub.Network)
+	return Network.Long2ip(sub.network)
 }
 
 func (sub *SubnetInfo) BradcastString() string {
-	return Network.Long2ip(sub.Broadcast)
+	return Network.Long2ip(sub.broadcast)
+}
+
+func (sub *SubnetInfo) IsRangeOf(addr string) (bool, error) {
+	return isRangeOf(addr, sub.cidr)
+}
+
+func (sub *SubnetInfo) low() uint32 {
+	if sub.broadcast-sub.network > 1 {
+		return sub.network + 1
+	}
+	return 0
+}
+
+//return the first available address in current subnet
+func (sub *SubnetInfo) LowAddress() string {
+	return Network.Long2ip(sub.low())
+}
+
+func (sub *SubnetInfo) high() uint32 {
+	if sub.broadcast-sub.network > 1 {
+		return sub.broadcast - 1
+	}
+	return 0
+}
+
+//return the last available address in current subnet
+func (sub *SubnetInfo) HighAddress() string {
+	return Network.Long2ip(sub.high())
+}
+
+//returns available ip address size
+func (sub *SubnetInfo) Size() uint32 {
+	if sub.high() == sub.low() {
+		return 0
+	}
+	return sub.high() - sub.low() + 1
+}
+
+func (sub *SubnetInfo) GetCidrSignature() string {
+	return sub.cidr
 }
 
 // 255.255.255.0 >>> 24
@@ -138,6 +204,11 @@ func (*GalangNet) IP2long(ipstr string) (uint32, error) {
 		return 0, fmt.Errorf("ip:%v is not valid, pattern should like: 192.168.1.1", ipstr)
 	}
 
+	return iP2long(ipstr)
+}
+
+func iP2long(ipstr string) (uint32, error) {
+
 	ip := net.ParseIP(ipstr)
 	if ip == nil {
 		return 0, nil
@@ -148,6 +219,17 @@ func (*GalangNet) IP2long(ipstr string) (uint32, error) {
 
 // if addr is range of cidr returns true
 func (*GalangNet) IsRangeOf(addr, cidr string) (bool, error) {
+
+	a, _ := regexp.MatchString(IP_REG, addr)
+	b, _ := regexp.MatchString(CIDR_REG, cidr)
+
+	if a == false || b == false {
+		return false, fmt.Errorf("prase addr %v or %v failed", addr, cidr)
+	}
+	return isRangeOf(addr, cidr)
+}
+
+func isRangeOf(addr, cidr string) (bool, error) {
 	ip := net.ParseIP(addr)
 	_, sub_net, err := net.ParseCIDR(cidr)
 	if err != nil {

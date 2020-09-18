@@ -88,7 +88,6 @@ func TestLPM(t *testing.T) {
 }
 
 func TestSubnetInfo(t *testing.T) {
-
 	info, err := NewSubnetInfo(`192.168.0.0/17`)
 	if err != nil {
 		t.Error(err.Error())
@@ -97,4 +96,44 @@ func TestSubnetInfo(t *testing.T) {
 	assert.Equal(t, `255.255.128.0`, info.NetmaskString(), "The two item should be the same.")
 	assert.Equal(t, `192.168.0.0`, info.NetworkString(), "The two item should be the same.")
 	assert.Equal(t, `192.168.127.255`, info.BradcastString(), "The two item should be the same.")
+
+	info2, err := NewSubnetInfo(`192.168.0.0/255.255.128.0`)
+	if err != nil {
+		t.Error(err.Error())
+	}
+	assert.Equal(t, `192.168.0.0`, info2.AddressString(), "The two item should be the same.")
+	assert.Equal(t, `255.255.128.0`, info2.NetmaskString(), "The two item should be the same.")
+	assert.Equal(t, `192.168.0.0`, info2.NetworkString(), "The two item should be the same.")
+	assert.Equal(t, `192.168.127.255`, info2.BradcastString(), "The two item should be the same.")
+}
+
+func TestLowHighAddress(t *testing.T) {
+
+	info, err := NewSubnetInfo(`192.168.1.2/21`)
+	if err != nil {
+		t.Error(err.Error())
+	}
+	assert.Equal(t, `192.168.0.1`, info.LowAddress(), "The two item should be the same.")
+	assert.Equal(t, `192.168.7.254`, info.HighAddress(), "The two item should be the same.")
+
+}
+
+func TestSubnetSize(t *testing.T) {
+
+	info, err := NewSubnetInfo(`192.168.1.0/24`)
+	if err != nil {
+		t.Error(err.Error())
+	}
+	assert.Equal(t, uint32(254), info.Size(), "The two item should be the same.")
+
+}
+
+func TestGetCidrSignature(t *testing.T) {
+
+	info, err := NewSubnetInfo(`192.168.1.0/255.255.255.0`)
+	if err != nil {
+		t.Error(err.Error())
+	}
+	assert.Equal(t, `192.168.1.0/24`, info.GetCidrSignature(), "The two item should be the same.")
+
 }
