@@ -11,7 +11,10 @@
 package utils
 
 import (
+	"encoding/json"
+	"fmt"
 	"math"
+	"reflect"
 	"strconv"
 )
 
@@ -57,4 +60,38 @@ func (*GalangTransform) Int64ToFloat64(num int64, retain int) float64 {
 
 func (*GalangTransform) BoolToString(b bool) string {
 	return strconv.FormatBool(b)
+}
+
+// return a string of any type
+func (gl *GalangTransform) AnyToString(any interface{}) string {
+	switch val := any.(type) {
+	case []byte:
+		return string(val)
+	case string:
+		return val
+	}
+	v := reflect.ValueOf(any)
+	switch v.Kind() {
+	case reflect.Invalid:
+		return ""
+	case reflect.Bool:
+		return gl.BoolToString(v.Bool())
+	case reflect.String:
+		return v.String()
+	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+		return gl.Int64ToString(v.Int())
+	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uintptr:
+		return strconv.FormatUint(v.Uint(), 10)
+	case reflect.Float64:
+		return gl.Float64ToString(v.Float())
+	case reflect.Float32:
+		return gl.Float32ToString(float32(v.Float()))
+	case reflect.Ptr, reflect.Struct, reflect.Map, reflect.Array, reflect.Slice:
+		b, err := json.Marshal(v.Interface())
+		if err != nil {
+			return ""
+		}
+		return string(b)
+	}
+	return fmt.Sprintf("%v", any)
 }
