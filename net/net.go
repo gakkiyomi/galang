@@ -11,13 +11,9 @@
 package net
 
 type (
-	GalangNet    byte
-	GalangHttp   byte
-	GalangSocket byte
+	GalangNet byte
 )
 
 var (
 	Network GalangNet
-	Http    GalangHttp
-	Socket  GalangSocket
 )
