@@ -14,6 +14,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"io"
 	"io/ioutil"
 	"strings"
 	"text/template"
@@ -64,6 +65,35 @@ func ReadConfigFile(path string) (Config, error) {
 		return result, nil
 	}
 
+	return nil, errors.New("only supoort json and xml config file")
+}
+
+func ReadConfig(r io.Reader) (Config, error) {
+	b, err := ioutil.ReadAll(r)
+	if err != nil {
+		return nil, err
+	}
+
+	if file.File.IsJSONByte(b) {
+		var m map[string]interface{}
+		if err := json.Unmarshal(b, &m); err != nil {
+			return nil, err
+		}
+		result := &JsonConfig{
+			Json:  m,
+			Jsonb: b,
+		}
+		return result, nil
+	}
+
+	doc := etree.NewDocument()
+	if file.File.IsXmlByte(b) {
+		result := &XmlConfig{
+			Xml:  doc,
+			Xmlb: b,
+		}
+		return result, nil
+	}
 	return nil, errors.New("only supoort json and xml config file")
 }
 
