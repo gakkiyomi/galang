@@ -1,27 +1,13 @@
 
 ## 💡 简介
 
-[Galang](https://github.com/gakkiyomi/galang) 是一款 Go 语言常用工具库。
+[Galang](https://github.com/gakkiyomi/galang) 是一款包含了网络地址相关，字符串相关，数据结构等 Go 语言常用工具库。
 
 ## 使用
    1. 直接在go.mod中引用
    2. `GOPROXY=direct go get -u github.com/gakkiyomi/galang`
 
 ## ✨ 功能
-
-### 读取配置文件 `config`
-
-* 读取JSON格式的配置文件
-* 读取XML格式的配置文件
-
-### 文件操作 `file.File`
-
-* 获取文件大小
-* 判断路径是否存在
-* 判断文件内容是否为JSON格式
-* 判断文件内容是否为XML格式
-* 判断文件流是否为JSON格式
-* 判断文件流是否为XML格式
 
 ### 网络相关 `net.Network`
 
@@ -46,11 +32,25 @@
 * 字符串转成字符数组
 * 去除数组中的重复元素
 
-### 转换 `utils.Transform`
-
-* 封装字符串与其他类型相互转换
-
 ### 数据结构 `structure`
 
 * 栈(stack)
 * 队列(queue)
+
+### 读取配置文件 `config`
+
+* 读取JSON格式的配置文件
+* 读取XML格式的配置文件
+
+### 文件操作 `file.File`
+
+* 获取文件大小
+* 判断路径是否存在
+* 判断文件内容是否为JSON格式
+* 判断文件内容是否为XML格式
+* 判断文件流是否为JSON格式
+* 判断文件流是否为XML格式
+
+### 转换 `utils.Transform`
+
+* 封装字符串与其他类型相互转换

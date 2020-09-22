@@ -23,6 +23,7 @@ type LinkedStack struct {
 }
 
 type node struct {
+	pre  *node
 	v    interface{}
 	next *node
 }
@@ -36,7 +37,7 @@ func (stack *LinkedStack) Len() int {
 }
 
 func (stack *LinkedStack) Push(v interface{}) {
-	n := &node{v, stack.head}
+	n := &node{nil, v, stack.head}
 	stack.head = n
 	stack.len++
 }

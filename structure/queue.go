@@ -21,7 +21,7 @@ func NewQueue() *Queue {
 }
 
 func (q *Queue) Offer(v interface{}) {
-	n := &node{v, nil}
+	n := &node{nil, v, nil}
 	if q.len == 0 {
 		q.tail = n
 		q.head = n
