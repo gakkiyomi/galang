@@ -28,3 +28,18 @@ func TestQueue(t *testing.T) {
 	assert.Equal(t, 3, queue.Poll(), "The two item should be the same.")
 	assert.Equal(t, nil, queue.Peek(), "The two item should be the same.")
 }
+
+func TestDeque(t *testing.T) {
+	queue := NewQueue()
+	queue.OfferLeft(33)
+	queue.OfferRight(22)
+	queue.OfferLeft(4)
+	queue.OfferLeft(3)
+	assert.Equal(t, 3, queue.PollLeft(), "The two item should be the same.")
+	assert.Equal(t, 4, queue.PollLeft(), "The two item should be the same.")
+	assert.Equal(t, 22, queue.Right(), "The two item should be the same.")
+	assert.Equal(t, 33, queue.Left(), "The two item should be the same.")
+	assert.Equal(t, 22, queue.PollRight(), "The two item should be the same.")
+	assert.Equal(t, 33, queue.PollLeft(), "The two item should be the same.")
+
+}

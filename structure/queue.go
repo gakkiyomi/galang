@@ -10,12 +10,6 @@
 
 package structure
 
-type Queue struct {
-	head *node
-	tail *node
-	len  int
-}
-
 func NewQueue() *Queue {
 	return &Queue{nil, nil, 0}
 }
@@ -26,6 +20,7 @@ func (q *Queue) Offer(v interface{}) {
 		q.tail = n
 		q.head = n
 	} else {
+		n.pre = q.tail
 		q.tail.next = n
 		q.tail = q.tail.next
 	}
@@ -53,4 +48,68 @@ func (q *Queue) Peek() interface{} {
 
 func (q *Queue) Len() int {
 	return q.len
+}
+
+//------------------------Deque------------------------------
+
+func (q *Queue) OfferLeft(v interface{}) {
+	n := &node{nil, v, nil}
+	if q.len == 0 {
+		q.tail = n
+		q.head = n
+	} else {
+		n.next = q.head
+		q.head.pre = n
+		q.head = q.head.pre
+	}
+	q.len++
+}
+
+func (q *Queue) PollLeft() interface{} {
+	if q.len == 0 {
+		return nil
+	}
+	res := q.head
+	q.head = q.head.next
+	q.len--
+	return res.v
+}
+
+//get first item in queue
+func (q *Queue) Left() interface{} {
+	if q.len == 0 {
+		return nil
+	}
+	return q.head.v
+}
+
+func (q *Queue) OfferRight(v interface{}) {
+	n := &node{nil, v, nil}
+	if q.len == 0 {
+		q.tail = n
+		q.head = n
+	} else {
+		n.pre = q.tail
+		q.tail.next = n
+		q.tail = q.tail.next
+	}
+	q.len++
+}
+
+func (q *Queue) PollRight() interface{} {
+	if q.len == 0 {
+		return nil
+	}
+	res := q.tail
+	q.tail = q.tail.pre
+	q.len--
+	return res.v
+}
+
+//get last item in queue
+func (q *Queue) Right() interface{} {
+	if q.len == 0 {
+		return nil
+	}
+	return q.tail.v
 }
