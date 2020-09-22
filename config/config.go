@@ -38,6 +38,7 @@ type XmlConfig struct {
 	Xmlb []byte
 }
 
+//Read a file in json format or xml format
 func ReadConfigFile(path string) (Config, error) {
 	b, err := ioutil.ReadFile(path)
 	if err != nil {
@@ -68,6 +69,7 @@ func ReadConfigFile(path string) (Config, error) {
 	return nil, errors.New("only supoort json and xml config file")
 }
 
+//Read a reader in json format or xml format
 func ReadConfig(r io.Reader) (Config, error) {
 	b, err := ioutil.ReadAll(r)
 	if err != nil {

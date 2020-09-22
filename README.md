@@ -49,3 +49,8 @@
 ### 转换 `utils.Transform`
 
 * 封装字符串与其他类型相互转换
+
+### 数据结构 `structure`
+
+* 栈(stack)
+
