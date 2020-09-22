@@ -10,33 +10,28 @@
 
 package structure
 
-func NewStack() Stack {
-	return &LinkedStack{nil, 0}
-}
-
-func (stack *LinkedStack) Len() int {
-	return stack.len
-}
-
-func (stack *LinkedStack) Push(v interface{}) {
-	n := &node{nil, v, stack.head}
-	stack.head = n
-	stack.len++
-}
-
-func (stack *LinkedStack) Pop() interface{} {
-	if stack.len == 0 {
-		return nil
+type (
+	Stack interface {
+		Push(interface{})
+		Pop() interface{}
+		Peek() interface{}
+		Len() int
 	}
-	res := stack.head
-	stack.head = res.next
-	stack.len--
-	return res.v
-}
 
-func (stack *LinkedStack) Peek() interface{} {
-	if stack.len == 0 {
-		return nil
+	LinkedStack struct {
+		head *node
+		len  int
 	}
-	return stack.head.v
-}
+
+	Queue struct {
+		head *node
+		tail *node
+		len  int
+	}
+
+	node struct {
+		pre  *node
+		v    interface{}
+		next *node
+	}
+)

@@ -10,12 +10,6 @@
 
 package structure
 
-type Queue struct {
-	head *node
-	tail *node
-	len  int
-}
-
 func NewQueue() *Queue {
 	return &Queue{nil, nil, 0}
 }
@@ -53,4 +47,48 @@ func (q *Queue) Peek() interface{} {
 
 func (q *Queue) Len() int {
 	return q.len
+}
+
+//------------------------Deque------------------------------
+
+func (q *Queue) OfferLeft(v interface{}) {
+	n := &node{nil, v, nil}
+	if q.len == 0 {
+		q.tail = n
+		q.head = n
+	} else {
+		n.next = q.head
+		q.head.pre = n
+		q.head = q.head.pre
+	}
+	q.len++
+}
+
+func (q *Queue) PollLeft() interface{} {
+	return nil
+}
+
+func (q *Queue) Left() interface{} {
+	return nil
+}
+
+func (q *Queue) OfferRight(v interface{}) {
+	n := &node{nil, v, nil}
+	if q.len == 0 {
+		q.tail = n
+		q.head = n
+	} else {
+		n.pre = q.tail
+		q.tail.next = n
+		q.tail = q.tail.next
+	}
+	q.len++
+}
+
+func (q *Queue) PollRight() interface{} {
+	return nil
+}
+
+func (q *Queue) Right() interface{} {
+	return nil
 }
