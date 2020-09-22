@@ -20,6 +20,7 @@ func (q *Queue) Offer(v interface{}) {
 		q.tail = n
 		q.head = n
 	} else {
+		n.pre = q.tail
 		q.tail.next = n
 		q.tail = q.tail.next
 	}
@@ -65,11 +66,21 @@ func (q *Queue) OfferLeft(v interface{}) {
 }
 
 func (q *Queue) PollLeft() interface{} {
-	return nil
+	if q.len == 0 {
+		return nil
+	}
+	res := q.head
+	q.head = q.head.next
+	q.len--
+	return res.v
 }
 
+//get first item in queue
 func (q *Queue) Left() interface{} {
-	return nil
+	if q.len == 0 {
+		return nil
+	}
+	return q.head.v
 }
 
 func (q *Queue) OfferRight(v interface{}) {
@@ -86,9 +97,19 @@ func (q *Queue) OfferRight(v interface{}) {
 }
 
 func (q *Queue) PollRight() interface{} {
-	return nil
+	if q.len == 0 {
+		return nil
+	}
+	res := q.tail
+	q.tail = q.tail.pre
+	q.len--
+	return res.v
 }
 
+//get last item in queue
 func (q *Queue) Right() interface{} {
-	return nil
+	if q.len == 0 {
+		return nil
+	}
+	return q.tail.v
 }
