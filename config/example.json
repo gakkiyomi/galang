@@ -1,0 +1,27 @@
+{
+    "rpcConfig":[
+        {
+            "path":"auth.RoleService",
+            "host": "192.168.1.146:8187",
+            "methods":["Create","Update","List","Delete","UpdateGroup"]
+            
+        },
+        {
+            "path":"auth.UserService",
+            "host": "192.168.1.146:8187",
+            "methods":["List","ListGroup"]
+        },
+        {
+            "path":"cmdb.NodeService",
+            "host": "192.168.1.146:8583",
+            "methods":["Create","Update","List","Search","Delete","Get"]
+            
+        },
+        {
+            "path":"cmdb.ModelService",
+            "host": "192.168.1.146:8583",
+            "methods":["Create","Update","List","Delete","Get","GetByLabel","BindingProperty","DeleteBindingProperty","GetBindingProperties"]
+            
+        }
+     ]
+}
