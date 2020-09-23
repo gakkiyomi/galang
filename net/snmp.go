@@ -46,6 +46,14 @@ type System struct {
 	Description string
 }
 
+type Interface struct {
+	Name       string
+	MacAddress string
+	IPv4       string
+	IPv6       string
+	Status     string
+}
+
 func (*GalangSNMP) NewSnmpWrapper(target, community string, version gosnmp.SnmpVersion, timeout int64) (*SNMPWrapper, error) {
 	client, err := gosnmp.NewGoSNMP(target, community, version, timeout)
 	if err != nil {
