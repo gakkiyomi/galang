@@ -11,9 +11,11 @@
 package net
 
 type (
-	GalangNet byte
+	GalangNet  byte
+	GalangSNMP byte
 )
 
 var (
 	Network GalangNet
+	SNMP    GalangSNMP
 )

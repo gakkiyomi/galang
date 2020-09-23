@@ -23,6 +23,10 @@
 * 获取一个网段中的第一个可用地址和最后一个可用地址
 * 获取一个网段中的可用地址数
 
+### SNMP `net.SNMP`
+
+* 获取系统信息(主机名，系统描述，snmp启动以来的运行时间，联系人，物理位置，厂商)
+
 ### 字符串 `utils.String`
 
 * 字符串是否已xx开头
@@ -54,3 +58,13 @@
 ### 转换 `utils.Transform`
 
 * 封装字符串与其他类型相互转换
+
+
+
+
+## 特别感谢
+[gosnmp # 不错的SNMP客户端](https://github.com/alouca/gosnmp)
+
+[dmidecode # dmidecode解析类库](https://github.com/dselans/dmidecode)
+
+[etree # xml解析类库](https://github.com/beevik/etree)

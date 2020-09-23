@@ -3,6 +3,8 @@ module github.com/gakkiyomi/galang
 go 1.13
 
 require (
+	github.com/alouca/gologger v0.0.0-20120904114645-7d4b7291de9c // indirect
+	github.com/alouca/gosnmp v0.0.0-20170620005048-04d83944c9ab
 	github.com/beevik/etree v1.1.0
 	github.com/dselans/dmidecode v0.0.0-20180814053009-65c3f9d81910
 	github.com/songtianyi/rrframework v0.0.0-20200422095750-7f2cca582e68
