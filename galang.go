@@ -11,20 +11,66 @@
 package main
 
 import (
+	"flag"
 	"fmt"
+	"regexp"
+	"time"
 
 	"github.com/alouca/gosnmp"
 	"github.com/gakkiyomi/galang/net"
+	"github.com/songtianyi/rrframework/logs"
 )
 
 func main() {
-	wrapper, err := net.SNMP.NewSnmpWrapper("192.168.1.222", "public", gosnmp.Version2c, 5)
+
+	var target string
+	flag.StringVar(&target, "t", "", "目标地址集合")
+	flag.Parse()
+
+	is_Range, _ := regexp.MatchString(net.RANGE_REG, target)
+	is_Ip, _ := regexp.MatchString(net.IP_REG, target)
+	is_Cidr, _ := regexp.MatchString(net.CIDR_REG, target)
+
+	if is_Range == true {
+		list, err := net.Network.GetRangeAddrList(target)
+		if err != nil {
+			logs.Error(err.Error())
+		}
+		for _, t := range list {
+			start(t)
+		}
+
+		return
+	}
+
+	if is_Ip == true {
+		start(target)
+		return
+	}
+
+	if is_Cidr == true {
+		list, err := net.Network.GetCIDRAvailableAddrList(target)
+		if err != nil {
+			logs.Error(err.Error())
+		}
+		for _, t := range list {
+			start(t)
+		}
+		return
+	}
+
+}
+
+func start(target string) {
+	wrapper, err := net.SNMP.NewSnmpWrapper(target, "public", gosnmp.Version2c, 3)
 	if err != nil {
-		fmt.Println(err)
+		logs.Error(err.Error())
 	}
 	intf, err := wrapper.Interfaces()
 	if err == nil {
-		fmt.Println(intf)
+		for _, v := range intf {
+			time.Sleep(time.Duration(500) * time.Millisecond)
+			fmt.Println(v.ToString())
+		}
 	}
-
 }

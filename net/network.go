@@ -25,6 +25,7 @@ const (
 	IP_REG        = `^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$`
 	CIDR_REG      = `^((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)(\[[^\[\].;\s]{1,100}\]|)/(1[0-9]|2[0-9]|3[0-2]|[0-9])$`
 	FULL_CIDR_REG = `^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])[\/](([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$`
+	RANGE_REG     = `^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])[~-](([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$`
 )
 
 type SubnetInfo struct {
@@ -285,6 +286,34 @@ func inc(ip net.IP) {
 			break
 		}
 	}
+}
+
+func (*GalangNet) GetRangeAddrList(_range string) ([]string, error) {
+
+	is_Range, _ := regexp.MatchString(RANGE_REG, _range)
+	if is_Range == false {
+		return nil, fmt.Errorf("prase range addr %v failed", _range)
+	}
+	var low_high []string
+	if b := strings.Contains(_range, "~"); b {
+		low_high = strings.Split(_range, "~")
+	} else {
+		low_high = strings.Split(_range, "-")
+	}
+
+	low := net.ParseIP(low_high[0])
+	high := net.ParseIP(low_high[1])
+
+	var ips []string
+
+	low_long, _ := iP2long(low.String())
+	high_long, _ := iP2long(high.String())
+	for ; low_long < high_long; inc(low) {
+		low_long, _ = iP2long(low.String())
+		ips = append(ips, low.String())
+	}
+
+	return ips, nil
 }
 
 // return Longest prefix match

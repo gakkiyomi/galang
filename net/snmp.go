@@ -94,11 +94,15 @@ func (x InterfaceStatus) String() string {
 }
 
 type Interface struct {
-	Name       string
-	MacAddress string
-	IPv4       string
-	NetMask    string
-	Status     InterfaceStatus
+	Name       string          `json:"name,omitempty"`
+	MacAddress string          `json:"mac_addr,omitempty"`
+	IPv4       string          `json:"ip,omitempty"`
+	NetMask    string          `json:"netmask,omitempty"`
+	Status     InterfaceStatus `json:"status,omitempty"`
+}
+
+func (intf *Interface) ToString() string {
+	return utils.Transform.AnyToString(intf)
 }
 
 func (*GalangSNMP) NewSnmpWrapper(target, community string, version gosnmp.SnmpVersion, timeout int64) (*SNMPWrapper, error) {

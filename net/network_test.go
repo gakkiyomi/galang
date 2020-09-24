@@ -137,3 +137,13 @@ func TestGetCidrSignature(t *testing.T) {
 	assert.Equal(t, `192.168.1.0/24`, info.GetCidrSignature(), "The two item should be the same.")
 
 }
+
+func TestRange(t *testing.T) {
+
+	info, err := Network.GetRangeAddrList(`192.168.1.1-192.168.1.254`)
+	if err != nil {
+		t.Error(err.Error())
+	}
+	assert.Equal(t, 254, len(info), "The two item should be the same.")
+
+}
