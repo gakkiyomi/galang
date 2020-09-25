@@ -18,6 +18,8 @@ import (
 	"github.com/songtianyi/rrframework/logs"
 )
 
+//snmp use example Refers to https://github.com/gakkiyomi/snmp-go-example
+
 var System_obj = map[string]string{
 	".1.3.6.1.2.1.1.1.0": "sysDescr",
 	".1.3.6.1.2.1.1.2.0": "sysObjectID",
