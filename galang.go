@@ -12,8 +12,8 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"regexp"
+	"sync"
 	"time"
 
 	"github.com/alouca/gosnmp"
@@ -49,19 +49,23 @@ func main() {
 	}
 
 	if is_Cidr == true {
+		var wg sync.WaitGroup
 		list, err := net.Network.GetCIDRAvailableAddrList(target)
 		if err != nil {
 			logs.Error(err.Error())
 		}
+		wg.Add(len(list))
 		for _, t := range list {
-			start(t)
+			go startSync(t, &wg)
 		}
+		wg.Wait()
 		return
 	}
 
 }
 
 func start(target string) {
+
 	wrapper, err := net.SNMP.NewSnmpWrapper(target, "public", gosnmp.Version2c, 3)
 	if err != nil {
 		logs.Error(err.Error())
@@ -70,7 +74,24 @@ func start(target string) {
 	if err == nil {
 		for _, v := range intf {
 			time.Sleep(time.Duration(500) * time.Millisecond)
-			fmt.Println(v.ToString())
+			logs.Info(v.ToString())
+		}
+	}
+}
+
+func startSync(target string, wg *sync.WaitGroup) {
+
+	defer wg.Done()
+
+	wrapper, err := net.SNMP.NewSnmpWrapper(target, "public", gosnmp.Version2c, 3)
+	if err != nil {
+		logs.Error(err.Error())
+	}
+	intf, err := wrapper.Interfaces()
+	if err == nil {
+		for _, v := range intf {
+			time.Sleep(time.Duration(500) * time.Millisecond)
+			logs.Info(v.ToString())
 		}
 	}
 }
