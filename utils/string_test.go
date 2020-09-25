@@ -64,3 +64,13 @@ func TestRemoveDuplicateInArray(t *testing.T) {
 	}
 
 }
+
+func TestStringInsert(t *testing.T) {
+	expected := []string{`1`, `2`, `5`, `3`, `4`}
+
+	source := []string{`1`, `2`, `3`, `4`}
+
+	actual := String.InsertAtIndex(source, `5`, 2)
+
+	assert.Equal(t, expected, actual, "The two item should be the same.")
+}

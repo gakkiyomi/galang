@@ -78,3 +78,11 @@ func (*GalangString) RemoveDuplicateInArray(source []string) []string {
 	}
 	return res
 }
+
+//Insert a value in a string slice at a given index
+func (*GalangString) InsertAtIndex(src []string, v string, index int) (res []string) {
+	res = append(src, "")
+	copy(res[index+1:], res[index:])
+	res[index] = v
+	return
+}
