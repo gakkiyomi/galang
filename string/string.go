@@ -22,20 +22,22 @@ var (
 	String GalangString
 )
 
+//StartWith returns string s isStartWith suffix
 func (*GalangString) StartWith(s, prefix string) bool {
 	return len(s) >= len(prefix) && s[0:len(prefix)] == prefix
 }
 
+//EndWith returns string s isEndWith suffix
 func (*GalangString) EndWith(s, suffix string) bool {
 	return len(s) >= len(suffix) && s[len(s)-len(suffix):] == suffix
 }
 
-//cotains ingore case
+//ContainsIgnoreCase cotains ingore case
 func (*GalangString) ContainsIgnoreCase(s, substr string) bool {
 	return strings.Contains(strings.ToLower(s), strings.ToLower(substr))
 }
 
-//Converts this string to a new string array.
+//ToStringArray Converts this string to a new string array.
 func (*GalangString) ToStringArray(str string) []string {
 
 	src := []rune(str)
@@ -46,7 +48,7 @@ func (*GalangString) ToStringArray(str string) []string {
 	return array
 }
 
-//check a string isblank
+//IsBlank check a string isblank
 func (*GalangString) IsBlank(str string) bool {
 
 	if len(str) == 0 {
@@ -62,12 +64,12 @@ func (*GalangString) IsBlank(str string) bool {
 	return true
 }
 
-//check a string is not blank
+//IsNotBlank check a string is not blank
 func (gs *GalangString) IsNotBlank(str string) bool {
 	return !gs.IsBlank(str)
 }
 
-//Remove duplicate strings from the given array.
+//RemoveDuplicateInArray Remove duplicate strings from the given array.
 func (*GalangString) RemoveDuplicateInArray(source []string) []string {
 	var res []string
 
@@ -87,7 +89,7 @@ func (*GalangString) RemoveDuplicateInArray(source []string) []string {
 	return res
 }
 
-//Insert a value in a string slice at a given index
+//InsertAtIndex Insert a value in a string slice at a given index
 func (*GalangString) InsertAtIndex(src []string, v string, index int) (res []string) {
 	res = append(src, "")
 	copy(res[index+1:], res[index:])
