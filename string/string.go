@@ -8,10 +8,18 @@
 // THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
 // See the Mulan PSL v2 for more details.
 
-package utils
+package string
 
 import (
 	"strings"
+)
+
+type (
+	GalangString byte
+)
+
+var (
+	String GalangString
 )
 
 func (*GalangString) StartWith(s, prefix string) bool {
@@ -55,8 +63,8 @@ func (*GalangString) IsBlank(str string) bool {
 }
 
 //check a string is not blank
-func (*GalangString) IsNotBlank(str string) bool {
-	return !String.IsBlank(str)
+func (gs *GalangString) IsNotBlank(str string) bool {
+	return !gs.IsBlank(str)
 }
 
 //Remove duplicate strings from the given array.
