@@ -12,10 +12,8 @@ package utils
 
 type (
 	GalangTransform byte
-	GalangString    byte
 )
 
 var (
 	Transform GalangTransform
-	String    GalangString
 )
