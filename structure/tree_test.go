@@ -79,4 +79,5 @@ func TestBFS(t *testing.T) {
 	assert.Equal(t, true, root.IsBalanced(), "The two item should be the same.")
 	assert.Equal(t, 3, root.High(), "The two item should be the same.")
 	assert.Equal(t, expected, actual, "The two item should be the same.")
+	assert.Equal(t, 5, root.Size(), "The two item should be the same.")
 }
