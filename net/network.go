@@ -11,9 +11,12 @@
 package net
 
 import (
+	"bytes"
 	"encoding/binary"
 	"fmt"
+	"io/ioutil"
 	"net"
+	"net/http"
 	"regexp"
 	"strings"
 
@@ -348,4 +351,36 @@ func (n *GalangNet) LPM(ip string, subnets []string) (string, error) {
 
 	}
 	return maxVal, nil
+}
+
+//GetLocalIPv4 获取本机ipv4地址
+func (*GalangNet) GetLocalIPv4() (string, error) {
+	addrs, err := net.InterfaceAddrs()
+	var ip string
+	if err != nil {
+		return "", err
+	}
+	for _, a := range addrs {
+		if ipnet, ok := a.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
+			if ipnet.IP.To4() != nil {
+				ip = ipnet.IP.String()
+				break
+			}
+		}
+	}
+	return ip, nil
+}
+
+// GetExternalIP 获取公网IP地址
+func (*GalangNet) GetExternalIP() (string, error) {
+	resp, err := http.Get("http://myexternalip.com/raw")
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+	b, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes.TrimSpace(b)), nil
 }
