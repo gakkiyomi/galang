@@ -16,53 +16,65 @@ import (
 	"math"
 	"reflect"
 	"strconv"
+	"unsafe"
 )
 
-//int ->>> string
+//IntToString .
 func (*GalangTransform) IntToString(i int) string {
 	return strconv.Itoa(i)
 }
 
-//int64 ->>> string
+//Int64ToString .
 func (*GalangTransform) Int64ToString(i int64) string {
 	return strconv.FormatInt(i, 10)
 }
 
-//string ->>> int64
+//StringToInt64 .
 func (*GalangTransform) StringToInt64(i string) (int64, error) {
 	return strconv.ParseInt(i, 10, 64)
 }
 
-//string ->>> int
+//StringToInt .
 func (*GalangTransform) StringToInt(i string) (int, error) {
 	return strconv.Atoi(i)
 }
 
-//float64 ->>> int64
+//Float64ToInt64 .
 func (*GalangTransform) Float64ToInt64(num float64, retain int) int64 {
 	return int64(num * math.Pow10(retain))
 }
 
-//float64 ->>> string
+//Float64ToString .
 func (*GalangTransform) Float64ToString(f float64) string {
 	return strconv.FormatFloat(f, 'f', -1, 64)
 }
 
-//float64 ->>> string
+//Float32ToString .
 func (*GalangTransform) Float32ToString(f float32) string {
 	return strconv.FormatFloat(float64(f), 'f', -1, 32)
 }
 
-//int64 ->>> float64
+//Int64ToFloat64 .
 func (*GalangTransform) Int64ToFloat64(num int64, retain int) float64 {
 	return float64(num) / math.Pow10(retain)
 }
 
+//BoolToString bool2string
 func (*GalangTransform) BoolToString(b bool) string {
 	return strconv.FormatBool(b)
 }
 
-// return a string of any type
+//BytesToString byte2string
+func (*GalangTransform) BytesToString(data []byte) string {
+	return *(*string)(unsafe.Pointer(&data))
+}
+
+//StringToBytes string2bytes
+func (*GalangTransform) StringToBytes(data string) []byte {
+	return *(*[]byte)(unsafe.Pointer(&data))
+}
+
+//AnyToString return a string of any type
 func (gl *GalangTransform) AnyToString(any interface{}) string {
 	switch val := any.(type) {
 	case []byte:

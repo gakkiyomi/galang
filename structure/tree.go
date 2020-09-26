@@ -95,6 +95,17 @@ func (bt *BinaryTree) High() int {
 	return int(math.Max(float64(left), float64(right))) + 1
 }
 
+//Size returns this tree node size
+func (bt *BinaryTree) Size() int {
+	if bt == nil {
+		return 0
+	}
+	left := bt.Left.Size()
+	right := bt.Right.Size()
+
+	return left + right + 1
+}
+
 func recur(root *BinaryTree) int {
 	if root == nil {
 		return 0
@@ -110,7 +121,7 @@ func recur(root *BinaryTree) int {
 	if math.Abs(float64(left-right)) < 2 {
 		//balance
 		return int(math.Max(float64(left), float64(right))) + 1
-	} else {
-		return -1 //not balance
 	}
+	return -1 //not balance
+
 }

@@ -21,21 +21,23 @@ import (
 	"github.com/gakkiyomi/galang/utils"
 )
 
+//SubnetInfo  java subnetutils的go版本实现
 type SubnetInfo struct {
 	netmask   uint32 //子网掩码
 	network   uint32 //网络位
 	address   uint32 //IP地址
 	broadcast uint32 //广播位
 	cidr      string
-	full_cidr string
+	fullCidr  string
 }
 
+//NewSubnetInfo 创建一个subnetInfo对象
 func NewSubnetInfo(cidr string) (*SubnetInfo, error) {
 
 	b, _ := regexp.MatchString(CIDR_REG, cidr)
 	c, _ := regexp.MatchString(FULL_CIDR_REG, cidr)
 
-	var full_cidr string
+	var fullCidr string
 
 	if b == false {
 
@@ -43,57 +45,60 @@ func NewSubnetInfo(cidr string) (*SubnetInfo, error) {
 			return nil, fmt.Errorf("cidr:%v is not valid, pattern should like: 192.168.1.0/24 or 192.168.1.0/255.255.255.0", cidr)
 		}
 
-		full_cidr = cidr
+		fullCidr = cidr
 
 		str := strings.Split(cidr, "/")
 		addr := str[0]
 		mask := str[1]
-		mask_length, _ := Network.NetmaskToMaskLength(mask)
-		cidr = addr + "/" + utils.Transform.IntToString(mask_length)
+		maskLength, _ := Network.NetmaskToMaskLength(mask)
+		cidr = addr + "/" + utils.Transform.IntToString(maskLength)
 	}
-
-	str := strings.Split(cidr, "/")
-	addr := str[0]
-	mask_length, _ := utils.Transform.StringToInt(str[1])
-	mask, _ := Network.MaskLengthToNetmask(mask_length)
-	full_cidr = addr + "/" + mask
 
 	_, sub, _ := net.ParseCIDR(cidr)
 
-	cidr_sr, _ := sub.Mask.Size()
-	suffix, _ := Network.MaskLengthToNetmask(cidr_sr)
+	maskLength, _ := sub.Mask.Size()
+	suffix, _ := Network.MaskLengthToNetmask(maskLength)
 
-	longIp, _ := iP2long(sub.IP.String())
+	str := strings.Split(cidr, "/")
+	addr := str[0]
+	fullCidr = addr + "/" + suffix
+
+	longIP, _ := iP2long(sub.IP.String())
 	longMask, _ := iP2long(suffix)
-	netwrok_addr := (longIp & longMask)
-	broadcast_addr := netwrok_addr | (^longMask)
+	netwrokAddr := (longIP & longMask)
+	broadcastAddr := netwrokAddr | (^longMask)
 
 	return &SubnetInfo{
-		address:   longIp,
+		address:   longIP,
 		netmask:   longMask,
-		network:   netwrok_addr,
-		broadcast: broadcast_addr,
+		network:   netwrokAddr,
+		broadcast: broadcastAddr,
 		cidr:      cidr,
-		full_cidr: full_cidr,
+		fullCidr:  fullCidr,
 	}, nil
 }
 
+//AddressString 获取ip地址
 func (sub *SubnetInfo) AddressString() string {
 	return Network.Long2ip(sub.address)
 }
 
+//NetmaskString 获取子网掩码
 func (sub *SubnetInfo) NetmaskString() string {
 	return Network.Long2ip(sub.netmask)
 }
 
+//NetworkString 获取网络地址
 func (sub *SubnetInfo) NetworkString() string {
 	return Network.Long2ip(sub.network)
 }
 
+//BradcastString 获取广播地址
 func (sub *SubnetInfo) BradcastString() string {
 	return Network.Long2ip(sub.broadcast)
 }
 
+//IsRangeOf 判断输入的ip是否在当前网段内
 func (sub *SubnetInfo) IsRangeOf(addr string) (bool, error) {
 	return isRangeOf(addr, sub.cidr)
 }
@@ -105,7 +110,7 @@ func (sub *SubnetInfo) low() uint32 {
 	return 0
 }
 
-//return the first available address in current subnet
+//LowAddress return the first available address in current subnet
 func (sub *SubnetInfo) LowAddress() string {
 	return Network.Long2ip(sub.low())
 }
@@ -117,12 +122,12 @@ func (sub *SubnetInfo) high() uint32 {
 	return 0
 }
 
-//return the last available address in current subnet
+//HighAddress return the last available address in current subnet
 func (sub *SubnetInfo) HighAddress() string {
 	return Network.Long2ip(sub.high())
 }
 
-//returns available ip address size
+//Size returns available ip address size
 func (sub *SubnetInfo) Size() uint32 {
 	if sub.high() == sub.low() {
 		return 0
@@ -130,11 +135,12 @@ func (sub *SubnetInfo) Size() uint32 {
 	return sub.high() - sub.low() + 1
 }
 
+//GetCidrSignature 获取无分类地址
 func (sub *SubnetInfo) GetCidrSignature() string {
 	return sub.cidr
 }
 
-// 255.255.255.0 >>> 24
+//NetmaskToMaskLength 255.255.255.0 >>> 24
 func (*GalangNet) NetmaskToMaskLength(netmask string) (int, error) {
 
 	re := regexp.MustCompile(IP_REG)
@@ -161,7 +167,7 @@ func (*GalangNet) NetmaskToMaskLength(netmask string) (int, error) {
 	return ones, nil
 }
 
-// 24 >>> 255.255.255.0
+//MaskLengthToNetmask 24 >>> 255.255.255.0
 func (*GalangNet) MaskLengthToNetmask(cidr int) (string, error) {
 
 	if cidr < 0 || cidr > 32 {
@@ -186,10 +192,12 @@ func (*GalangNet) MaskLengthToNetmask(cidr int) (string, error) {
 	return localmask, nil
 }
 
+//Long2ip .
 func (*GalangNet) Long2ip(ip uint32) string {
 	return fmt.Sprintf("%d.%d.%d.%d", ip>>24, ip<<8>>24, ip<<16>>24, ip<<24>>24)
 }
 
+//IP2long .
 func (*GalangNet) IP2long(ipstr string) (uint32, error) {
 
 	re := regexp.MustCompile(IP_REG)
@@ -211,7 +219,7 @@ func iP2long(ipstr string) (uint32, error) {
 	return binary.BigEndian.Uint32(ip), nil
 }
 
-// if addr is range of cidr returns true
+//IsRangeOf if addr is range of cidr returns true
 func (*GalangNet) IsRangeOf(addr, cidr string) (bool, error) {
 
 	a, _ := regexp.MatchString(IP_REG, addr)
@@ -225,26 +233,26 @@ func (*GalangNet) IsRangeOf(addr, cidr string) (bool, error) {
 
 func isRangeOf(addr, cidr string) (bool, error) {
 	ip := net.ParseIP(addr)
-	_, sub_net, err := net.ParseCIDR(cidr)
+	_, subNet, err := net.ParseCIDR(cidr)
 	if err != nil {
 		return false, fmt.Errorf("prase cidr %v failed", cidr)
 	}
-	if sub_net.Contains(ip) {
+	if subNet.Contains(ip) {
 		return true, nil
 	}
 	return false, nil
 }
 
-//get linux dmidecode -s system-uuid
-func (*GalangNet) GetSystemUUID_Linux() (string, error) {
+//GetSystemUUIDForLinux get linux dmidecode -s system-uuid
+func (*GalangNet) GetSystemUUIDForLinux() (string, error) {
 	dmi := dmidecode.New()
 
 	if err := dmi.Run(); err != nil {
-		return "", fmt.Errorf("Unable to get dmidecode information. Error: %v\n", err)
+		return "", fmt.Errorf("Unable to get dmidecode information. Error: %v", err)
 	}
-	system_info, _ := dmi.SearchByName("System Information")
+	systemInfo, _ := dmi.SearchByName("System Information")
 
-	for _, v := range system_info {
+	for _, v := range systemInfo {
 		if _, ok := v["UUID"]; ok {
 			return v["UUID"], nil
 		}
@@ -253,7 +261,7 @@ func (*GalangNet) GetSystemUUID_Linux() (string, error) {
 	return "", fmt.Errorf("can't get system uuid")
 }
 
-//retrun available ip address list
+//GetCIDRAvailableAddrList retrun available ip address list
 func (*GalangNet) GetCIDRAvailableAddrList(cidr string) ([]string, error) {
 	ip, ipnet, err := net.ParseCIDR(cidr)
 	if err != nil {
@@ -281,35 +289,36 @@ func inc(ip net.IP) {
 	}
 }
 
+//GetRangeAddrList 获取一个范围里的ip地址   192.168.1.222-192.168.1.228
 func (*GalangNet) GetRangeAddrList(_range string) ([]string, error) {
 
-	is_Range, _ := regexp.MatchString(RANGE_REG, _range)
-	if is_Range == false {
+	isRange, _ := regexp.MatchString(RANGE_REG, _range)
+	if isRange == false {
 		return nil, fmt.Errorf("prase range addr %v failed", _range)
 	}
-	var low_high []string
+	var lowAndhigh []string
 	if b := strings.Contains(_range, "~"); b {
-		low_high = strings.Split(_range, "~")
+		lowAndhigh = strings.Split(_range, "~")
 	} else {
-		low_high = strings.Split(_range, "-")
+		lowAndhigh = strings.Split(_range, "-")
 	}
 
-	low := net.ParseIP(low_high[0])
-	high := net.ParseIP(low_high[1])
+	low := net.ParseIP(lowAndhigh[0])
+	high := net.ParseIP(lowAndhigh[1])
 
 	var ips []string
 
-	low_long, _ := iP2long(low.String())
-	high_long, _ := iP2long(high.String())
-	for ; low_long < high_long; inc(low) {
-		low_long, _ = iP2long(low.String())
+	lowLong, _ := iP2long(low.String())
+	highLong, _ := iP2long(high.String())
+	for ; lowLong < highLong; inc(low) {
+		lowLong, _ = iP2long(low.String())
 		ips = append(ips, low.String())
 	}
 
 	return ips, nil
 }
 
-// return Longest prefix match
+//LPM return Longest prefix match
 func (n *GalangNet) LPM(ip string, subnets []string) (string, error) {
 	var filter []string
 	for _, cidr := range subnets {
@@ -327,11 +336,11 @@ func (n *GalangNet) LPM(ip string, subnets []string) (string, error) {
 
 	for i := 1; i < len(filter); i++ {
 
-		_, ipnet_max, _ := net.ParseCIDR(maxVal)
-		_, ipnet_i, _ := net.ParseCIDR(filter[i])
+		_, ipnetMax, _ := net.ParseCIDR(maxVal)
+		_, ipnet, _ := net.ParseCIDR(filter[i])
 
-		max, _ := ipnet_max.Mask.Size()
-		vi, _ := ipnet_i.Mask.Size()
+		max, _ := ipnetMax.Mask.Size()
+		vi, _ := ipnet.Mask.Size()
 
 		if max < vi {
 			maxVal = filter[i]
