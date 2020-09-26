@@ -10,20 +10,24 @@
 
 package structure
 
+//NewStack returns a Stack
 func NewStack() Stack {
 	return &LinkedStack{nil, 0}
 }
 
+//Len returns a stack length
 func (stack *LinkedStack) Len() int {
 	return stack.len
 }
 
+//Push a value into stack
 func (stack *LinkedStack) Push(v interface{}) {
 	n := &node{nil, v, stack.head}
 	stack.head = n
 	stack.len++
 }
 
+//Pop a vlaue out of stack
 func (stack *LinkedStack) Pop() interface{} {
 	if stack.len == 0 {
 		return nil
@@ -34,9 +38,15 @@ func (stack *LinkedStack) Pop() interface{} {
 	return res.v
 }
 
+//Peek returns the head of stack
 func (stack *LinkedStack) Peek() interface{} {
 	if stack.len == 0 {
 		return nil
 	}
 	return stack.head.v
+}
+
+//IsEmpty 栈是否为空
+func (stack *LinkedStack) IsEmpty() bool {
+	return stack.Len() == 0
 }
