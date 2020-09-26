@@ -55,6 +55,26 @@ func (bt *BinaryTree) PostOrder() []interface{} {
 	return res
 }
 
+//BFS 层次遍历
+func (bt *BinaryTree) BFS() []interface{} {
+	res := make([]interface{}, 0)
+	if bt != nil {
+		nodes := []*BinaryTree{bt}
+		for len(nodes) > 0 {
+			currentNode := nodes[0]
+			nodes = nodes[1:]
+			res = append(res, currentNode.V)
+			if currentNode.Left != nil {
+				nodes = append(nodes, currentNode.Left)
+			}
+			if currentNode.Right != nil {
+				nodes = append(nodes, currentNode.Right)
+			}
+		}
+	}
+	return res
+}
+
 //IsBalanced check this tree is balanced
 func (bt *BinaryTree) IsBalanced() bool {
 	if recur(bt) == -1 {

@@ -64,3 +64,19 @@ func TestPostOder(t *testing.T) {
 	assert.Equal(t, 5, root.High(), "The two item should be the same.")
 	assert.Equal(t, expected, actual, "The two item should be the same.")
 }
+
+func TestBFS(t *testing.T) {
+
+	expected := []interface{}{3, 0, 5, 2, 4}
+
+	root := NewBinaryTree(3)
+	root.Left = NewBinaryTree(0)
+	root.Left.Right = NewBinaryTree(2)
+	root.Right = NewBinaryTree(5)
+	root.Right.Left = NewBinaryTree(4)
+
+	actual := root.BFS()
+	assert.Equal(t, true, root.IsBalanced(), "The two item should be the same.")
+	assert.Equal(t, 3, root.High(), "The two item should be the same.")
+	assert.Equal(t, expected, actual, "The two item should be the same.")
+}
