@@ -110,7 +110,7 @@ func recur(root *BinaryTree) int {
 	if math.Abs(float64(left-right)) < 2 {
 		//balance
 		return int(math.Max(float64(left), float64(right))) + 1
-	} else {
-		return -1 //not balance
 	}
+	return -1 //not balance
+
 }
