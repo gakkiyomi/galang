@@ -42,6 +42,7 @@
 
 * 栈(stack)
 * 队列(queue)
+* 二叉树(BinaryTree) **不保证平衡**
 
 ### 读取配置文件 `config`
 

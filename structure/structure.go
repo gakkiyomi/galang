@@ -11,22 +11,33 @@
 package structure
 
 type (
+	//Stack interface
 	Stack interface {
 		Push(interface{})
 		Pop() interface{}
 		Peek() interface{}
 		Len() int
+		IsEmpty() bool
 	}
 
+	//LinkedStack is use Linked list achieve stack
 	LinkedStack struct {
 		head *node
 		len  int
 	}
 
+	//Queue struct
 	Queue struct {
 		head *node
 		tail *node
 		len  int
+	}
+
+	//BinaryTree struct
+	BinaryTree struct {
+		V     interface{}
+		Left  *BinaryTree
+		Right *BinaryTree
 	}
 
 	node struct {

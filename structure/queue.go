@@ -10,10 +10,12 @@
 
 package structure
 
+//NewQueue retruns a Queue
 func NewQueue() *Queue {
 	return &Queue{nil, nil, 0}
 }
 
+//Offer a value into queue
 func (q *Queue) Offer(v interface{}) {
 	n := &node{nil, v, nil}
 	if q.len == 0 {
@@ -27,6 +29,7 @@ func (q *Queue) Offer(v interface{}) {
 	q.len++
 }
 
+//Poll a value out of queue
 func (q *Queue) Poll() interface{} {
 	if q.len == 0 {
 		return nil
@@ -38,7 +41,7 @@ func (q *Queue) Poll() interface{} {
 
 }
 
-//retrun head node value ,if queue isEmpty return nil
+//Peek retrun head node value ,if queue isEmpty return nil
 func (q *Queue) Peek() interface{} {
 	if q.len == 0 {
 		return nil
@@ -46,12 +49,19 @@ func (q *Queue) Peek() interface{} {
 	return q.head.v
 }
 
+//Len returns the queue length
 func (q *Queue) Len() int {
 	return q.len
 }
 
+//IsEmpty return this queue isempty
+func (q *Queue) IsEmpty() bool {
+	return q.Len() == 0
+}
+
 //------------------------Deque------------------------------
 
+//OfferLeft  insert a value into queue head
 func (q *Queue) OfferLeft(v interface{}) {
 	n := &node{nil, v, nil}
 	if q.len == 0 {
@@ -65,6 +75,7 @@ func (q *Queue) OfferLeft(v interface{}) {
 	q.len++
 }
 
+//PollLeft  delete a value into queue head
 func (q *Queue) PollLeft() interface{} {
 	if q.len == 0 {
 		return nil
@@ -75,7 +86,7 @@ func (q *Queue) PollLeft() interface{} {
 	return res.v
 }
 
-//get first item in queue
+//Left get head in queue
 func (q *Queue) Left() interface{} {
 	if q.len == 0 {
 		return nil
@@ -83,6 +94,7 @@ func (q *Queue) Left() interface{} {
 	return q.head.v
 }
 
+//OfferRight  insert a value into queue tail
 func (q *Queue) OfferRight(v interface{}) {
 	n := &node{nil, v, nil}
 	if q.len == 0 {
@@ -96,6 +108,7 @@ func (q *Queue) OfferRight(v interface{}) {
 	q.len++
 }
 
+//PollRight  delete a value into queue tail
 func (q *Queue) PollRight() interface{} {
 	if q.len == 0 {
 		return nil
@@ -106,7 +119,7 @@ func (q *Queue) PollRight() interface{} {
 	return res.v
 }
 
-//get last item in queue
+//Right get last item in queue
 func (q *Queue) Right() interface{} {
 	if q.len == 0 {
 		return nil
