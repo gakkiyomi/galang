@@ -23,7 +23,7 @@ type GalangFile byte
 
 var File GalangFile
 
-//get the length in bytes of file of the specified path.
+//GetFileSize get the length in bytes of file of the specified path.
 func (*GalangFile) GetFileSize(path string) int64 {
 	file, err := os.Stat(path)
 	if err != nil {
@@ -33,7 +33,7 @@ func (*GalangFile) GetFileSize(path string) int64 {
 	return file.Size()
 }
 
-//check one file is json file
+//IsJSONFile check one file is json file
 func (file *GalangFile) IsJSONFile(path string) bool {
 	b, err := ioutil.ReadFile(path)
 	if err != nil {
@@ -43,12 +43,12 @@ func (file *GalangFile) IsJSONFile(path string) bool {
 	return file.IsJSONByte(b)
 }
 
-//check one []byte is json file
+//IsJSONByte check one []byte is json file
 func (*GalangFile) IsJSONByte(b []byte) bool {
 	return json.Valid(b)
 }
 
-//check one file is xml file
+//IsXmlFile check one file is xml file
 func (file *GalangFile) IsXmlFile(path string) bool {
 	b, err := ioutil.ReadFile(path)
 	if err != nil {
@@ -57,7 +57,7 @@ func (file *GalangFile) IsXmlFile(path string) bool {
 	return file.IsXmlByte(b)
 }
 
-//check one []byte is xml file
+//IsXmlByte check one []byte is xml file
 func (*GalangFile) IsXmlByte(b []byte) bool {
 	doc := etree.NewDocument()
 	if err := doc.ReadFromBytes(b); err != nil {
