@@ -11,7 +11,6 @@
 package net
 
 import (
-	"context"
 	"fmt"
 	"time"
 
@@ -96,12 +95,8 @@ func (*GalangNMAP) NewScanner(target, user string) (*Scanner, error) {
 //Scanner will scan target ip or subnet
 func (sc *Scanner) Scanner(options ...func(*nmap.Scanner)) (*Scanner, error) {
 
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
-	defer cancel()
-
 	scanner, err := nmap.NewScanner(
 		nmap.WithTargets(sc.Targets...),
-		nmap.WithContext(ctx),
 	)
 
 	for _, option := range options {
