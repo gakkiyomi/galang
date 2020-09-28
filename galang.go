@@ -11,9 +11,12 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
+	"time"
 
+	"github.com/Ullaakut/nmap"
 	"github.com/gakkiyomi/galang/net"
 	"github.com/songtianyi/rrframework/logs"
 )
@@ -21,6 +24,9 @@ import (
 func main() {
 
 	sc, err := net.NMAP.NewScanner("192.168.1.222", "fangcong")
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
+	defer cancel()
 
 	if err != nil {
 		logs.Error("unable to create nmap scanner: %v", err)
@@ -32,11 +38,25 @@ func main() {
 	logs.Info(string(b))
 	logs.Info("===========================================================")
 
-	sc, err = sc.Scanner()
-	if err != nil {
-		logs.Error("scan error : %v", err)
-	}
-	result := sc.Result
+	do := make(chan *net.Scanner, 1)
+
+	go func() {
+		logs.Info("===========================================================")
+		logs.Info("Runnning")
+		logs.Info("===========================================================")
+		sc, err = sc.Scanner(
+			nmap.WithPorts("80", "8080", "5432"),
+			nmap.WithContext(ctx),
+		)
+		if err != nil {
+			logs.Error("scan error : %v", err)
+		}
+		do <- sc
+	}()
+
+	res := <-do
+
+	result := res.Result
 	// Use the results to print an example output
 	for _, host := range result.Hosts {
 		if len(host.Ports) == 0 || len(host.Addresses) == 0 {
