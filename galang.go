@@ -11,6 +11,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/gakkiyomi/galang/net"
@@ -25,8 +26,10 @@ func main() {
 		logs.Error("unable to create nmap scanner: %v", err)
 	}
 
+	b, _ := json.Marshal(sc)
+
 	logs.Info("===========================================================")
-	logs.Info(sc)
+	logs.Info(string(b))
 	logs.Info("===========================================================")
 
 	sc, err = sc.Scanner()
@@ -39,8 +42,7 @@ func main() {
 		if len(host.Ports) == 0 || len(host.Addresses) == 0 {
 			continue
 		}
-		fmt.Printf("HostName %q ", host.Hostnames[0])
-		fmt.Printf("os %q ", host.OS)
+		fmt.Printf("addresses %q ", host.Addresses)
 		fmt.Printf("Host %q , type %q ,verdor %q:\n", host.Addresses[0].Addr, host.Addresses[0].AddrType, host.Addresses[0].Vendor)
 		for _, port := range host.Ports {
 			fmt.Printf("\tPort %d/%s %s %s\n", port.ID, port.Protocol, port.State, port.Service.Name)
@@ -48,4 +50,10 @@ func main() {
 	}
 
 	fmt.Printf("Nmap done: %d hosts up scanned in %3f seconds\n", len(result.Hosts), result.Stats.Finished.Elapsed)
+
+	b2, _ := json.Marshal(sc)
+	logs.Info("===========================================================")
+	logs.Info(string(b2))
+	logs.Info("===========================================================")
+
 }

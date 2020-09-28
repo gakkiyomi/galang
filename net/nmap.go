@@ -94,7 +94,7 @@ func (*GalangNMAP) NewScanner(target, user string) (*Scanner, error) {
 }
 
 //Scanner will scan target ip or subnet
-func (sc *Scanner) Scanner() (*Scanner, error) {
+func (sc *Scanner) Scanner(options ...func(*nmap.Scanner)) (*Scanner, error) {
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 	defer cancel()
@@ -103,6 +103,11 @@ func (sc *Scanner) Scanner() (*Scanner, error) {
 		nmap.WithTargets(sc.Targets...),
 		nmap.WithContext(ctx),
 	)
+
+	for _, option := range options {
+		option(scanner)
+	}
+
 	if err != nil {
 		logs.Error("unable to create nmap scanner: %v", err)
 		return nil, err
