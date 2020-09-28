@@ -22,6 +22,7 @@ import (
 
 	"github.com/dselans/dmidecode"
 	"github.com/gakkiyomi/galang/utils"
+	"github.com/songtianyi/rrframework/logs"
 )
 
 //SubnetInfo  java subnetutils的go版本实现
@@ -383,4 +384,26 @@ func (*GalangNet) GetExternalIP() (string, error) {
 		return "", err
 	}
 	return string(bytes.TrimSpace(b)), nil
+}
+
+//GetIPSFormat will format target string to a valid string array
+//if target is a ip like 192.168.1.222  will format ['192.168.1.222']
+//if target is a range of ip like 192.168.1.222[-||~]192.168.1.224  will format ['192.168.1.222','192.168.1.223','192.168.1.224']
+func (*GalangNet) IPSFormat(target string) ([]string, error) {
+	is_Range, _ := regexp.MatchString(RANGE_REG, target)
+	is_Ip, _ := regexp.MatchString(IP_REG, target)
+
+	if is_Range == true {
+		list, err := Network.GetRangeAddrList(target)
+		if err != nil {
+			logs.Error(err.Error())
+		}
+		return list, nil
+	}
+
+	if is_Ip == true {
+		return []string{target}, nil
+	}
+
+	return nil, fmt.Errorf("target: %s  is not vaild ip or range of ip", target)
 }

@@ -147,3 +147,12 @@ func TestRange(t *testing.T) {
 	assert.Equal(t, 254, len(info), "The two item should be the same.")
 
 }
+
+func TestIPSFormat(t *testing.T) {
+	expected := []string{`192.168.1.33`}
+	expectedRange := []string{`192.168.1.33`, `192.168.1.34`, `192.168.1.35`}
+	actual, _ := Network.IPSFormat(`192.168.1.33`)
+	actualRange, _ := Network.IPSFormat(`192.168.1.33-192.168.1.35`)
+	assert.Equal(t, expected, actual, "The two item should be the same.")
+	assert.Equal(t, expectedRange, actualRange, "The two item should be the same.")
+}
