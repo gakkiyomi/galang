@@ -20,9 +20,11 @@ const (
 type (
 	GalangNet  byte
 	GalangSNMP byte
+	GalangNMAP byte
 )
 
 var (
 	Network GalangNet
 	SNMP    GalangSNMP
+	NMAP    GalangNMAP
 )
