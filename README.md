@@ -49,11 +49,15 @@
 * 栈(stack)
 * 队列(queue)
 * 二叉树(BinaryTree) **不保证平衡**
+* TODO 自平衡二叉查找树
+* TODO 红黑树
+* TODO 堆
 
 ### 读取配置文件 `config`
 
 * 读取JSON格式的配置文件
 * 读取XML格式的配置文件
+* TODO 读取YMAL格式的配置文件
 
 ### 文件操作 `file.File`
 
