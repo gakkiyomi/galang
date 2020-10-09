@@ -10,12 +10,20 @@
 
 package utils
 
-type (
-	GalangTransform byte
-	GalangUUID      byte
+import (
+	"fmt"
+	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
-var (
-	Transform GalangTransform
-	UUID      GalangUUID
-)
+func TestNewUUID(t *testing.T) {
+	fmt.Println(UUID.NewUUID())
+}
+
+func TestCheckUUID(t *testing.T) {
+	b := UUID.Check("6ba7b810-9dad-11d1-80b4-00c04fd430c8")
+	c := UUID.Check("6ba7b810-9dad-11d1-80b4-00c04fd430c8aaa")
+	assert.Equal(t, true, b, "The two item should be the same.")
+	assert.Equal(t, false, c, "The two item should be the same.")
+}
