@@ -65,6 +65,18 @@ type Scanner struct {
 	Warnings  []string      `json:"warnings"`
 }
 
+type HostResult struct {
+	Total int32  `json:"total"`
+	Up    int32  `json:"up"`
+	Down  int32  `json:"down"`
+	Hosts []Host `json:"hosts"`
+}
+
+type Host struct {
+	Address []nmap.Address `json:"addresses"`
+	Ports   []nmap.Port    `json:"ports"`
+}
+
 //NewScanner 新建一个扫描器
 func (*GalangNMAP) NewScanner(target, user string) (*Scanner, error) {
 	var targets []string
@@ -127,4 +139,27 @@ func (sc *Scanner) Scanner(options ...func(*nmap.Scanner)) (*Scanner, error) {
 	}
 
 	return sc, nil
+}
+
+func (sc *Scanner) Hosts() HostResult {
+	var res HostResult
+	if sc.Status != Success {
+		return res
+	}
+
+	res = HostResult{
+		Total: sc.Hosts().Total,
+		Up:    sc.Hosts().Up,
+		Down:  sc.Hosts().Down,
+	}
+
+	hosts := make([]Host, 0)
+	for _, host := range sc.Result.Hosts {
+		hosts = append(hosts, Host{
+			Address: host.Addresses,
+			Ports:   host.Ports,
+		})
+	}
+	res.Hosts = hosts
+	return res
 }
