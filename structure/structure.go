@@ -34,10 +34,14 @@ type (
 	}
 
 	//BinaryTree struct
-	BinaryTree struct {
+	BinaryTreeNode struct {
 		V     interface{}
-		Left  *BinaryTree
-		Right *BinaryTree
+		Left  *BinaryTreeNode
+		Right *BinaryTreeNode
+	}
+
+	BinaryTree struct {
+		Root *BinaryTreeNode
 	}
 
 	node struct {

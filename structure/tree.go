@@ -16,28 +16,44 @@ import (
 
 //NewBinaryTree 构造器
 func NewBinaryTree(v interface{}) *BinaryTree {
-	return &BinaryTree{V: v}
+	return &BinaryTree{
+		Root: &BinaryTreeNode{
+			V: v,
+		}}
+}
+
+func AddNode(v interface{}) *BinaryTreeNode {
+	return &BinaryTreeNode{
+		V: v,
+	}
 }
 
 //PreOrder 前序遍历
 func (bt *BinaryTree) PreOrder() []interface{} {
-	res := make([]interface{}, 0)
-	if bt != nil {
-		res = append(res, bt.V)
-		res = append(res, bt.Left.PreOrder()...)
-		res = append(res, bt.Right.PreOrder()...)
-	}
+	return preOrder(bt.Root)
+}
 
+func preOrder(root *BinaryTreeNode) []interface{} {
+	res := make([]interface{}, 0)
+	if root != nil {
+		res = append(res, root.V)
+		res = append(res, preOrder(root.Left)...)
+		res = append(res, preOrder(root.Right)...)
+	}
 	return res
 }
 
 //MiddleOrder 中序遍历
 func (bt *BinaryTree) MiddleOrder() []interface{} {
+	return middleOrder(bt.Root)
+}
+
+func middleOrder(root *BinaryTreeNode) []interface{} {
 	res := make([]interface{}, 0)
-	if bt != nil {
-		res = append(res, bt.Left.MiddleOrder()...)
-		res = append(res, bt.V)
-		res = append(res, bt.Right.MiddleOrder()...)
+	if root != nil {
+		res = append(res, middleOrder(root.Left)...)
+		res = append(res, root.V)
+		res = append(res, middleOrder(root.Right)...)
 	}
 
 	return res
@@ -45,11 +61,15 @@ func (bt *BinaryTree) MiddleOrder() []interface{} {
 
 //PostOrder 后序遍历
 func (bt *BinaryTree) PostOrder() []interface{} {
+	return postOrder(bt.Root)
+}
+
+func postOrder(root *BinaryTreeNode) []interface{} {
 	res := make([]interface{}, 0)
-	if bt != nil {
-		res = append(res, bt.Left.PostOrder()...)
-		res = append(res, bt.Right.PostOrder()...)
-		res = append(res, bt.V)
+	if root != nil {
+		res = append(res, postOrder(root.Left)...)
+		res = append(res, postOrder(root.Right)...)
+		res = append(res, root.V)
 	}
 
 	return res
@@ -59,7 +79,7 @@ func (bt *BinaryTree) PostOrder() []interface{} {
 func (bt *BinaryTree) BFS() []interface{} {
 	res := make([]interface{}, 0)
 	if bt != nil {
-		nodes := []*BinaryTree{bt}
+		nodes := []*BinaryTreeNode{bt.Root}
 		for len(nodes) > 0 {
 			currentNode := nodes[0]
 			nodes = nodes[1:]
@@ -77,7 +97,7 @@ func (bt *BinaryTree) BFS() []interface{} {
 
 //IsBalanced check this tree is balanced
 func (bt *BinaryTree) IsBalanced() bool {
-	if recur(bt) == -1 {
+	if recur(bt.Root) == -1 {
 		return false
 	}
 	return true
@@ -85,28 +105,36 @@ func (bt *BinaryTree) IsBalanced() bool {
 
 //High returns this tree high
 func (bt *BinaryTree) High() int {
-	if bt == nil {
+	return high(bt.Root)
+}
+
+func high(root *BinaryTreeNode) int {
+	if root == nil {
 		return 0
 	}
 
-	left := bt.Left.High()
-	right := bt.Right.High()
+	left := high(root.Left)
+	right := high(root.Right)
 
 	return int(math.Max(float64(left), float64(right))) + 1
 }
 
 //Size returns this tree node size
 func (bt *BinaryTree) Size() int {
-	if bt == nil {
+	return size(bt.Root)
+}
+
+func size(root *BinaryTreeNode) int {
+	if root == nil {
 		return 0
 	}
-	left := bt.Left.Size()
-	right := bt.Right.Size()
+	left := size(root.Left)
+	right := size(root.Right)
 
 	return left + right + 1
 }
 
-func recur(root *BinaryTree) int {
+func recur(root *BinaryTreeNode) int {
 	if root == nil {
 		return 0
 	}
@@ -125,3 +153,11 @@ func recur(root *BinaryTree) int {
 	return -1 //not balance
 
 }
+
+/**func (node *BinaryTree) Add(v interface{}) {
+	tree.Root = tree.Root.Add(value)
+}
+
+func (node *BinaryTree) add(v interface{}) *BinaryTree {
+
+}*/
