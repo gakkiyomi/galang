@@ -108,7 +108,6 @@ func (sc *Scanner) Scanner(options ...func(*nmap.Scanner)) (*Scanner, error) {
 		return nil, err
 	}
 	sc.StartTime = time.Now()
-	sc.Status = Running
 	result, warnings, err := scanner.Run()
 	sc.EndTime = time.Now()
 

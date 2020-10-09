@@ -44,6 +44,7 @@ func main() {
 		logs.Info("===========================================================")
 		logs.Info("Runnning")
 		logs.Info("===========================================================")
+		sc.Status = net.Running
 		sc, err = sc.Scanner(
 			nmap.WithPorts("80", "8080", "5432"),
 			nmap.WithContext(ctx),
