@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	getInterfaces(`192.168.1.146`)
+	getHosts(`192.168.1.146`)
 }
 
 func getHosts(target string) {
