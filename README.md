@@ -32,7 +32,7 @@
 
 ### NMAP `net.NMAP`
 
-* 基于NMAP的网络扫描器
+* 基于NMAP的网络扫描器(支持扫描网段或者范围ip来获取主机ip和端口开闭情况)
 
 ### 字符串 `string.String`
 
