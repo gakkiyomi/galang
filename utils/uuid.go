@@ -10,12 +10,19 @@
 
 package utils
 
-type (
-	GalangTransform byte
-	GalangUUID      byte
+import (
+	uuid "github.com/satori/go.uuid"
 )
 
-var (
-	Transform GalangTransform
-	UUID      GalangUUID
-)
+func (*GalangUUID) NewUUID() string {
+	u1 := uuid.Must(uuid.NewV4(), nil)
+	return u1.String()
+}
+
+func (*GalangUUID) Check(str string) bool {
+	_, err := uuid.FromString(str)
+	if err != nil {
+		return false
+	}
+	return true
+}
