@@ -38,7 +38,7 @@ func main() {
 
 	res := <-do
 
-	b1, _ := json.Marshal(res))
+	b1, _ := json.Marshal(res)
 	logs.Info(string(b1))
 
 	b2, _ := json.Marshal(res.Hosts())
