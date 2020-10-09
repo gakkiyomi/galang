@@ -11,7 +11,11 @@ import (
 )
 
 func main() {
-	sc, err := net.NMAP.NewScanner("192.168.1.146", "fangcong")
+	getHosts(`192.168.1.146`)
+}
+
+func getHosts(target string) {
+	sc, err := net.NMAP.NewScanner(target, "fangcong")
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 	defer cancel()
@@ -38,10 +42,6 @@ func main() {
 
 	res := <-do
 
-	b1, _ := json.Marshal(res)
-	logs.Info(string(b1))
-
 	b2, _ := json.Marshal(res.Hosts())
 	logs.Info(string(b2))
-
 }
