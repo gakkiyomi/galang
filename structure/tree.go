@@ -153,11 +153,3 @@ func recur(root *BinaryTreeNode) int {
 	return -1 //not balance
 
 }
-
-/**func (node *BinaryTree) Add(v interface{}) {
-	tree.Root = tree.Root.Add(value)
-}
-
-func (node *BinaryTree) add(v interface{}) *BinaryTree {
-
-}*/

@@ -3,6 +3,7 @@ module github.com/gakkiyomi/galang
 go 1.13
 
 require (
+	github.com/RichardKnop/machinery v1.9.2 // indirect
 	github.com/Ullaakut/disgo v0.3.1
 	github.com/Ullaakut/go-curl v0.0.0-20190525093431-597e157bbffd
 	github.com/Ullaakut/nmap v2.0.0+incompatible
