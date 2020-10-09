@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"time"
 
 	"github.com/Ullaakut/nmap"
@@ -37,6 +38,7 @@ func main() {
 
 	res := <-do
 
-	logs.Info(res.Hosts())
+	b2, _ := json.Marshal(res.Hosts())
+	logs.Info(string(b2))
 
 }
