@@ -148,9 +148,9 @@ func (sc *Scanner) Hosts() HostResult {
 	}
 
 	res = HostResult{
-		Total: sc.Hosts().Total,
-		Up:    sc.Hosts().Up,
-		Down:  sc.Hosts().Down,
+		Total: int32(sc.Result.Stats.Hosts.Total),
+		Up:    int32(sc.Result.Stats.Hosts.Up),
+		Down:  int32(sc.Result.Stats.Hosts.Down),
 	}
 
 	hosts := make([]Host, 0)
