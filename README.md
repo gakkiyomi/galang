@@ -32,7 +32,7 @@
 
 ### NMAP `net.NMAP`
 
-* 基于NMAP的网络扫描器
+* 基于NMAP的网络扫描器(支持扫描网段或者范围ip来获取主机ip和端口开闭情况)
 
 ### 字符串 `string.String`
 
@@ -43,17 +43,22 @@
 * 字符串转成字符数组
 * 去除数组中的重复元素
 * 数组中指定位置插入元素
+* TODO 生成UUID
 
 ### 数据结构 `structure`
 
 * 栈(stack)
 * 队列(queue)
 * 二叉树(BinaryTree) **不保证平衡**
+* TODO 自平衡二叉查找树
+* TODO 红黑树
+* TODO 堆
 
 ### 读取配置文件 `config`
 
 * 读取JSON格式的配置文件
 * 读取XML格式的配置文件
+* TODO 读取YMAL格式的配置文件
 
 ### 文件操作 `file.File`
 
@@ -73,6 +78,8 @@
 
 ## 特别感谢
 [gosnmp # 不错的SNMP客户端](https://github.com/alouca/gosnmp)
+
+[gosnmp # 牛逼的NMAP客户端](https://github.com/Ullaakut/nmap)
 
 [dmidecode # dmidecode解析类库](https://github.com/dselans/dmidecode)
 
