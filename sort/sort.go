@@ -10,6 +10,10 @@
 
 package sort
 
+import (
+	"github.com/gakkiyomi/galang/structure"
+)
+
 //SelectionSort is the realization of selection sort
 func SelectionSort(source []int) {
 	length := len(source)
@@ -86,4 +90,27 @@ func partition(source []int, left, right int) int {
 	}
 
 	return left //or right
+}
+
+func HeapSort(source []int, asc bool) []int {
+
+	result := []int{}
+
+	if asc {
+
+		minHeap := structure.NewMinHeap(source)
+		for range source {
+			// 也可以使用栈或者队列
+			//result = array.Array.InsertAtIndexByIntArray(result, maxHeap.ExtractMax(), 0)
+			result = append(result, minHeap.ExtractMin())
+		}
+
+	} else {
+		maxHeap := structure.NewMaxHeap(source)
+		for range source {
+			result = append(result, maxHeap.ExtractMax())
+		}
+
+	}
+	return result
 }
