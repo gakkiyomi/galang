@@ -37,17 +37,6 @@ func (*GalangString) ContainsIgnoreCase(s, substr string) bool {
 	return strings.Contains(strings.ToLower(s), strings.ToLower(substr))
 }
 
-//ToStringArray Converts this string to a new string array.
-func (*GalangString) ToStringArray(str string) []string {
-
-	src := []rune(str)
-	array := make([]string, len(src))
-	for k, v := range src {
-		array[k] = string(v)
-	}
-	return array
-}
-
 //IsBlank check a string isblank
 func (*GalangString) IsBlank(str string) bool {
 
@@ -67,32 +56,4 @@ func (*GalangString) IsBlank(str string) bool {
 //IsNotBlank check a string is not blank
 func (gs *GalangString) IsNotBlank(str string) bool {
 	return !gs.IsBlank(str)
-}
-
-//RemoveDuplicateInArray Remove duplicate strings from the given array.
-func (*GalangString) RemoveDuplicateInArray(source []string) []string {
-	var res []string
-
-	if len(source) == 0 {
-		return source
-	}
-
-	hash := make(map[string]int, len(source))
-	for k, v := range source {
-		if _, ok := hash[v]; ok {
-
-		} else {
-			res = append(res, v)
-		}
-		hash[v] = k
-	}
-	return res
-}
-
-//InsertAtIndex Insert a value in a string slice at a given index
-func (*GalangString) InsertAtIndex(src []string, v string, index int) (res []string) {
-	res = append(src, "")
-	copy(res[index+1:], res[index:])
-	res[index] = v
-	return
 }

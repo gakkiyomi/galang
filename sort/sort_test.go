@@ -36,3 +36,14 @@ func TestQuickSort(t *testing.T) {
 	QuickSort(source)
 	assert.Equal(t, expected, source, "The two item should be the same.")
 }
+
+func TestHeapSort(t *testing.T) {
+	expected := []int{1, 2, 3, 4, 13, 22, 44, 54, 222, 441}
+	expected2 := []int{441, 222, 54, 44, 22, 13, 4, 3, 2, 1}
+	source := []int{1, 4, 2, 44, 22, 13, 222, 441, 3, 54}
+	source2 := []int{1, 4, 2, 44, 22, 13, 222, 441, 3, 54}
+	x := HeapSort(source, true)
+	y := HeapSort(source2, false)
+	assert.Equal(t, expected, x, "The two item should be the same.")
+	assert.Equal(t, expected2, y, "The two item should be the same.")
+}

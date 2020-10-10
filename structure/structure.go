@@ -49,4 +49,8 @@ type (
 		v    interface{}
 		next *node
 	}
+
+	Heap struct {
+		Items []int
+	}
 )
