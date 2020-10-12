@@ -152,3 +152,30 @@ func merge(left, right []int) []int {
 	return slice
 
 }
+
+//ShellSort is the realization of shell sort
+func ShellSort(source []int) {
+	K := len(source) / 2
+	for {
+		for i := 0; i < len(source); i++ {
+			gap(source, 0, len(source)-1, K)
+		}
+
+		if K == 1 {
+			break
+		}
+
+		K = K / 2
+		if K%2 == 0 {
+			K++
+		}
+	}
+}
+
+func gap(source []int, first, last, K int) {
+	for i := first; i <= last; i++ {
+		if i+K <= last && source[i] > source[i+K] {
+			source[i], source[i+K] = source[i+K], source[i]
+		}
+	}
+}

@@ -64,7 +64,7 @@
 * 快速排序(Quick Sort)
 * 堆排序(Heap Sort)
 * 归并排序(Merge Sort)
-* TODO 希尔排序(Hell Sort)
+* 希尔排序(Sell Sort)
 * TODO 桶排序(Bucket Sort)
 
 ### 读取配置文件 `config`
