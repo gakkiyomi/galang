@@ -58,14 +58,14 @@
 * TODO 红黑树
 
 ### 排序算法 `sort`
-* 冒泡排序
-* 选择排序
-* 插入排序
-* 快速排序
-* 堆排序
-* TODO 归并排序
-* TODO 希尔排序
-* TODO 桶排序
+* 冒泡排序(Quick Sort)
+* 选择排序(Selection Sort)
+* 插入排序(Insertion Sort)
+* 快速排序(Quick Sort)
+* 堆排序(Heap Sort)
+* 归并排序(Merge Sort)
+* TODO 希尔排序(Hell Sort)
+* TODO 桶排序(Bucket Sort)
 
 ### 读取配置文件 `config`
 

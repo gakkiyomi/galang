@@ -47,3 +47,12 @@ func TestHeapSort(t *testing.T) {
 	assert.Equal(t, expected, x, "The two item should be the same.")
 	assert.Equal(t, expected2, y, "The two item should be the same.")
 }
+
+func TestMergeSort(t *testing.T) {
+	expected := []int{1, 2, 3, 4, 13, 22, 44, 54, 211, 222, 441}
+	source := []int{1, 4, 2, 44, 22, 13, 222, 441, 3, 54, 211}
+
+	x := MergeSort(source)
+	assert.Equal(t, expected, x, "The two item should be the same.")
+
+}

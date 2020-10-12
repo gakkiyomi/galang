@@ -29,7 +29,7 @@ func SelectionSort(source []int) {
 
 }
 
-//SelectionSort is the realization of bubble sort
+//BubbleSort is the realization of bubble sort
 func BubbleSort(source []int) {
 
 	for i := 0; i < len(source); i++ {
@@ -42,7 +42,7 @@ func BubbleSort(source []int) {
 
 }
 
-//SelectionSort is the realization of insertion sort
+//InsertionSort is the realization of insertion sort
 func InsertionSort(source []int) {
 	length := len(source)
 
@@ -57,7 +57,7 @@ func InsertionSort(source []int) {
 	}
 }
 
-//SelectionSort is the realization of quick sort
+//QuickSort is the realization of quick sort
 func QuickSort(source []int) {
 	recursionSort(source, 0, len(source)-1)
 }
@@ -92,6 +92,7 @@ func partition(source []int, left, right int) int {
 	return left //or right
 }
 
+//HeapSort is the realization of heap sort
 func HeapSort(source []int, asc bool) []int {
 
 	result := []int{}
@@ -113,4 +114,41 @@ func HeapSort(source []int, asc bool) []int {
 
 	}
 	return result
+}
+
+//MergeSort is the realization of merge sort
+func MergeSort(source []int) []int {
+	if len(source) < 2 {
+		return source
+	}
+	mid := (len(source)) / 2
+	return merge(MergeSort(source[:mid]), MergeSort(source[mid:]))
+}
+
+func merge(left, right []int) []int {
+	size, li, ri := len(left)+len(right), 0, 0 //left和right的指针位置
+	slice := make([]int, size, size)
+
+	count := 0
+
+	for li < len(left) && ri < len(right) {
+		if left[li] <= right[ri] {
+			slice[count] = left[li]
+			count, li = count+1, li+1
+			continue
+		}
+		slice[count] = right[ri]
+		count, ri = count+1, ri+1
+	}
+	for li < len(left) {
+		slice[count] = left[li]
+		count, li = count+1, li+1
+	}
+	for ri < len(right) {
+		slice[count] = right[ri]
+		count, ri = count+1, ri+1
+	}
+
+	return slice
+
 }
