@@ -23,6 +23,13 @@ func TestBubbleSort(t *testing.T) {
 	assert.Equal(t, expected, source, "The two item should be the same.")
 }
 
+func TestInsertionSort(t *testing.T) {
+	expected := []int{1, 2, 3, 4, 13, 22, 44, 54, 222, 441}
+	source := []int{1, 4, 2, 44, 22, 13, 222, 441, 3, 54}
+	InsertionSort(source)
+	assert.Equal(t, expected, source, "The two item should be the same.")
+}
+
 func TestSelectionSort(t *testing.T) {
 	expected := []int{1, 2, 3, 4, 13, 22, 44, 54, 222, 441}
 	source := []int{1, 4, 2, 44, 22, 13, 222, 441, 3, 54}
@@ -63,5 +70,13 @@ func TestShellSort(t *testing.T) {
 
 	ShellSort(source)
 	assert.Equal(t, expected, source, "The two item should be the same.")
+
+}
+
+func TestBucketSort(t *testing.T) {
+	expected := []int{1, 2, 3, 4, 6, 13, 22, 44, 54, 211, 222, 441, 2222, 11114}
+	source := []int{1, 4, 2, 44, 22, 13, 222, 441, 3, 54, 11114, 211, 2222, 6}
+
+	assert.Equal(t, expected, BucketSort(source, 5), "The two item should be the same.")
 
 }

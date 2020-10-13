@@ -73,3 +73,26 @@ func TestReverse(t *testing.T) {
 	Array.Reverse(source)
 	assert.Equal(t, expected, source, "The two item should be the same.")
 }
+
+func TestGetMaxInArray(t *testing.T) {
+	source := []int{33, 2, 1112, 44122}
+	expected := 44122
+	actual := Array.GetMaxInArray(source)
+	assert.Equal(t, expected, actual, "The two item should be the same.")
+}
+
+func TestGetMinInArray(t *testing.T) {
+	source := []int{33, 2, 1112, 44122}
+	expected := 2
+	actual := Array.GetMinInArray(source)
+	assert.Equal(t, expected, actual, "The two item should be the same.")
+}
+
+func TestGettMinAndMax(t *testing.T) {
+	source := []int{33, 2, 1112, 44122}
+	expectedMin := 2
+	expectedMax := 44122
+	min, max := Array.GetMinAndMax(source)
+	assert.Equal(t, expectedMin, min, "The two item should be the same.")
+	assert.Equal(t, expectedMax, max, "The two item should be the same.")
+}
