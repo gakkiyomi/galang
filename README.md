@@ -52,6 +52,8 @@
 * Array deduplication
 * String to String array
 * Reverse array/silce
+* Get max vlaue in int array
+* Get min vlaue in int array
 
 ### Structure `structure`
 

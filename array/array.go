@@ -71,3 +71,41 @@ func (*GalangArray) Reverse(source []string) {
 		source[i], source[len-i-1] = source[len-i-1], source[i]
 	}
 }
+
+//GetMaxInArray 获取数组最大值
+func (*GalangArray) GetMaxInArray(arr []int) int {
+	max := arr[0]
+	for i := 1; i < len(arr); i++ {
+		if arr[i] > max {
+			max = arr[i]
+		}
+	}
+	return max
+}
+
+//GetMinInArray 获取数组最小值
+func (*GalangArray) GetMinInArray(arr []int) int {
+	min := arr[0]
+	for i := 1; i < len(arr); i++ {
+		if arr[i] < min {
+			min = arr[i]
+		}
+	}
+	return min
+}
+
+func (*GalangArray) GetMinAndMax(arr []int) (int, int) {
+	len := len(arr)
+	min := arr[0]
+	max := arr[len-1]
+	for i := 1; i < len; i++ {
+		if arr[i] < min {
+			min = arr[i]
+		}
+
+		if arr[len-1-i] > max {
+			max = arr[len-1-i]
+		}
+	}
+	return min, max
+}

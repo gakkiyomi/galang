@@ -11,6 +11,7 @@
 package sort
 
 import (
+	"github.com/gakkiyomi/galang/array"
 	"github.com/gakkiyomi/galang/structure"
 )
 
@@ -47,13 +48,14 @@ func InsertionSort(source []int) {
 	length := len(source)
 
 	for i := 1; i < length; i++ {
-		j := i
-		for j > 0 {
-			if source[j-1] > source[j] {
-				source[j], source[j-1] = source[j-1], source[j]
-			}
-			j -= 1
+		backup := source[i]
+		j := i - 1
+		//将选出的被排数比较后插入左边有序区
+		for j >= 0 && backup < source[j] { //注意j >= 0必须在前边，否则会数组越界
+			source[j+1] = source[j] //移动有序数组
+			j--                     //反向移动下标
 		}
+		source[j+1] = backup //插队插入移动后的空位
 	}
 }
 
@@ -178,4 +180,36 @@ func gap(source []int, first, last, K int) {
 			source[i], source[i+K] = source[i+K], source[i]
 		}
 	}
+}
+
+//BucketSort is the realization of bucket sort
+func BucketSort(source []int, bucketSize int) []int {
+	//桶数
+	var num int
+	if bucketSize == 0 {
+		num = len(source)
+	} else {
+		num = bucketSize
+	}
+
+	//数组最大值
+	max := array.Array.GetMaxInArray(source)
+
+	//桶
+	buckets := make([][]int, num)
+
+	for _, n := range source {
+		// 计算出指定值应该进入哪个桶
+		idx := n * num / (max + 1)
+		buckets[idx] = append(buckets[idx], n)
+	}
+
+	sorted := make([]int, 0)
+	for _, bucket := range buckets {
+		if len(bucket) > 0 {
+			InsertionSort(bucket)
+			sorted = append(sorted, bucket...)
+		}
+	}
+	return sorted
 }
