@@ -5,7 +5,7 @@
 [Galang](https://github.com/gakkiyomi/galang) Some utils for the Go: network,network address,string,algorithms/structure,array/silce
 
 
-> **[中文说明](README.md)**
+> **[中文说明](README.zh-CN.md)**
 
 ## use
    1. use go.mod
