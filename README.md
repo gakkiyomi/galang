@@ -2,6 +2,7 @@
 ## 💡 简介
 
 [Galang](https://github.com/gakkiyomi/galang) 是一款包含了网络地址相关，字符串相关，算法和数据结构等 Go 语言常用工具库。
+[Galang](https://github.com/gakkiyomi/galang) Some utils for the Go: network,network address,string,algorithms/structure
 
 ## 使用
    1. 直接在go.mod中引用
