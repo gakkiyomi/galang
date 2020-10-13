@@ -56,22 +56,21 @@
 
 ### 数据结构 `structure`
 
-* 栈(stack)
-* 队列(queue)
-* 二叉树(BinaryTree) **不保证平衡**
+* 栈
+* 队列
+* 二叉树 **不保证平衡**
 * 堆(heap,大顶堆,小顶堆)
-* TODO 自平衡二叉查找树
 * TODO 红黑树
 
 ### 排序算法 `sort`
-* 冒泡排序(Quick Sort)
-* 选择排序(Selection Sort)
-* 插入排序(Insertion Sort)
-* 快速排序(Quick Sort)
-* 堆排序(Heap Sort)
-* 归并排序(Merge Sort)
-* 希尔排序(Shell Sort)
-* TODO 桶排序(Bucket Sort)
+* 冒泡排序
+* 选择排序
+* 插入排序
+* 快速排序
+* 堆排序
+* 归并排序
+* 希尔排序
+* 桶排序
 
 ### 读取配置文件 `config`
 
