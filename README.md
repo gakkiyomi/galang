@@ -1,106 +1,106 @@
 
 ## 💡 简介
 
-[Galang](https://github.com/gakkiyomi/galang) 是一款包含了网络地址相关，字符串相关，算法和数据结构等 Go 语言常用工具库。
+
+[Galang](https://github.com/gakkiyomi/galang) Some utils for the Go: network,network address,string,algorithms/structure,array/silce
 
 
-[Galang](https://github.com/gakkiyomi/galang) Some utils for the Go: network,network address,string,algorithms/structure
+> **[中文说明](README.zh-CN.md)**
 
-## 使用
-   1. 直接在go.mod中引用
+## use
+   1. use go.mod
    2. `GOPROXY=direct go get -u github.com/gakkiyomi/galang`
 
-## ✨ 功能
+## ✨ Feature list
 
-### 网络相关 `net.Network`
+### Network `net.Network`
 
-* 获取本地IP地址
-* 获取公网IP地址
-* JAVA Apache SubnetUtils go实现
-* 通过子网掩码转换掩码位元数
-* 通过掩码位元数转换子网掩码
-* Long类型IP转IP字符串
-* IP字符串转Long类型IP
-* 判断一个IP地址是否在一个网段内
-* 获取本机dmidecode唯一标识UUID(linux)
-* 获取一个网段下所有可用地址(排除广播地址和网络地址)
-* IP最长前缀匹配算法(LPM)
-* 获取网段的网络位和广播位
-* 获取一个网段中的第一个可用地址和最后一个可用地址
-* 获取一个网段中的可用地址数
+* Get Local IP
+* Get Internet IP
+* JAVA Apache SubnetUtils go version
+* Convert the number of mask bits by subnet mask
+* Convert the subnet mask by the number of mask bits
+* Long type IP to IP string
+* IP string to Long type IP
+* Determine whether an IP address is range of a network segment
+* Get local dmidecode uuid (only linux)
+* Get all available addresses under a network segment (excluding broadcast addresses and network addresses)
+* IP longest prefix matching algorithm (LPM)
+* Get the network bit and broadcast bit of the network segment
+* Get the first available address and the last available address in a network segment
+* Get the number of available addresses in a network segment
 
 ### SNMP `net.SNMP`
 
-* 获取系统信息(主机名，系统描述，snmp启动以来的运行时间，联系人，物理位置，厂商)
-* 获取接口信息(IP地址，子网掩码，接口当前状态，MAC地址)
+* Get system information (host name, system description, running time since snmp started, contact person, physical location, vendor)
+* Get interface information (IP address, subnet mask, current interface status, MAC address)
 
 ### NMAP `net.NMAP`
 
-* 基于NMAP的网络扫描器(支持扫描网段或者范围ip来获取主机ip和端口开闭情况)
+* NMAP-based network scanner (support scanning network segment or range ip to obtain host ip and port opening and closing status)
 
-### 字符串 `string.String`
+### String `string.String`
 
-* 字符串是否已xx开头
-* 字符串是否已xx结尾
-* 判断包含字串忽略大小写
-* 判断字符串是否为空白字符串
+* Does the string begin with xx
+* Does the string end with xx
+* Judgment contains string ignore case
+* Determine whether the string is a blank string
 
-### 数组 `array.Array`
+### Array `array.Array`
 
-* 数组中指定位置插入元素
-* 去除数组中的重复元素
-* 字符串转成字符数组
-* 反转字符串数组
+* Insert an element at the specified position in the array
+* Array deduplication
+* String to String array
+* Reverse array/silce
 
-### 数据结构 `structure`
+### Structure `structure`
 
-* 栈(stack)
-* 队列(queue)
-* 二叉树(BinaryTree) **不保证平衡**
-* 堆(heap,大顶堆,小顶堆)
-* TODO 自平衡二叉查找树
-* TODO 红黑树
+* Stack
+* Queue
+* BinaryTree **No guarantee of balance**
+* Heap,(MaxHeap,MinHeap)
+* TODO | Red–black tree
 
-### 排序算法 `sort`
-* 冒泡排序(Quick Sort)
-* 选择排序(Selection Sort)
-* 插入排序(Insertion Sort)
-* 快速排序(Quick Sort)
-* 堆排序(Heap Sort)
-* 归并排序(Merge Sort)
-* 希尔排序(Shell Sort)
-* TODO 桶排序(Bucket Sort)
+### Sort `sort`
+* Quick Sort
+* Selection Sort
+* Insertion Sort
+* Quick Sort
+* Heap Sort
+* Merge Sort
+* Shell Sort
+* TODO | Bucket Sort
 
-### 读取配置文件 `config`
+### Config `config`
 
-* 读取JSON格式的配置文件
-* 读取XML格式的配置文件
-* TODO 读取YMAL格式的配置文件
+* Read configuration file in JSON format
+* Read configuration file in XML format
+* TODO | Read configuration file in YAML format
 
-### 文件操作 `file.File`
+### File `file.File`
 
-* 获取文件大小
-* 判断路径是否存在
-* 判断文件内容是否为JSON格式
-* 判断文件内容是否为XML格式
-* 判断文件流是否为JSON格式
-* 判断文件流是否为XML格式
+* Get file size
+* Check the path exists
+* Check the file content is in JSON format
+* Check the file content is in XML format
+* Check the file stream content is in JSON format
+* Check the file stream content is in XML format
 
-### 转换 `utils.Transform`
+### Transform `utils.Transform`
 
-* 封装字符串与其他类型相互转换
+* Convert between string and other types
 
 ### UUID `utils.UUID`
-* 生成UUID
-* 检查一个字符串是否为UUID
+* Generate a UUID
+* check if UUID is legal
 
 
 
-## 特别感谢
-[gosnmp # 不错的SNMP客户端](https://github.com/alouca/gosnmp)
+## Thanks
+[gosnmp # good SNMP client](https://github.com/alouca/gosnmp)
 
-[gosnmp # 牛逼的NMAP客户端](https://github.com/Ullaakut/nmap)
+[gosnmp # great NMAP client](https://github.com/Ullaakut/nmap)
 
-[dmidecode # dmidecode解析类库](https://github.com/dselans/dmidecode)
+[dmidecode # dmidecode library](https://github.com/dselans/dmidecode)
 
-[etree # xml解析类库](https://github.com/beevik/etree)
+[etree # xml parse library](https://github.com/beevik/etree)
