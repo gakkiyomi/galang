@@ -88,7 +88,7 @@ func TestGetMinInArray(t *testing.T) {
 	assert.Equal(t, expected, actual, "The two item should be the same.")
 }
 
-func TestGettMinAndMax(t *testing.T) {
+func TestGetMinAndMax(t *testing.T) {
 	source := []int{33, 2, 1112, 44122}
 	expectedMin := 2
 	expectedMax := 44122

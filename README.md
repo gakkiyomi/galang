@@ -71,7 +71,7 @@
 * Heap Sort
 * Merge Sort
 * Shell Sort
-* TODO | Bucket Sort
+* Bucket Sort
 
 ### Config `config`
 
