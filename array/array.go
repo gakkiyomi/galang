@@ -60,3 +60,14 @@ func (*GalangArray) ToStringArray(str string) []string {
 	}
 	return array
 }
+
+//Reverse array
+func (*GalangArray) Reverse(source []string) {
+	len := len(source)
+	if len == 0 {
+		return
+	}
+	for i := 0; i < len/2; i++ {
+		source[i], source[len-i-1] = source[len-i-1], source[i]
+	}
+}
