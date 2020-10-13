@@ -66,3 +66,10 @@ func TestToStringArray(t *testing.T) {
 	assert.Equal(t, 3, len(f), "The two item should be the same.")
 
 }
+
+func TestReverse(t *testing.T) {
+	source := []string{`a`, `b`, `c`, `d`}
+	expected := []string{`d`, `c`, `b`, `a`}
+	Array.Reverse(source)
+	assert.Equal(t, expected, source, "The two item should be the same.")
+}
