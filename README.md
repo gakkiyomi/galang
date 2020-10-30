@@ -62,6 +62,7 @@
 * BinaryTree **No guarantee of balance**
 * Heap,(MaxHeap,MinHeap)
 * TODO | Red–black tree
+* TODO | Graph
 
 ### Sort `sort`
 * Quick Sort
