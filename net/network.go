@@ -18,6 +18,7 @@ import (
 	"net"
 	"net/http"
 	"regexp"
+	"runtime"
 	"strings"
 
 	"github.com/dselans/dmidecode"
@@ -249,6 +250,11 @@ func isRangeOf(addr, cidr string) (bool, error) {
 
 //GetSystemUUIDForLinux get linux dmidecode -s system-uuid
 func (*GalangNet) GetSystemUUIDForLinux() (string, error) {
+
+	if !isLinux() {
+		return "", fmt.Errorf("only support linux system")
+	}
+
 	dmi := dmidecode.New()
 
 	if err := dmi.Run(); err != nil {
@@ -263,6 +269,14 @@ func (*GalangNet) GetSystemUUIDForLinux() (string, error) {
 
 	}
 	return "", fmt.Errorf("can't get system uuid")
+}
+
+func isWindows() bool {
+	return "windows" == runtime.GOOS
+}
+
+func isLinux() bool {
+	return "linux" == runtime.GOOS
 }
 
 //GetCIDRAvailableAddrList retrun available ip address list

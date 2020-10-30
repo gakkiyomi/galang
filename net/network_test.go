@@ -156,3 +156,12 @@ func TestIPSFormat(t *testing.T) {
 	assert.Equal(t, expected, actual, "The two item should be the same.")
 	assert.Equal(t, expectedRange, actualRange, "The two item should be the same.")
 }
+
+func TestGetSystemUUIDForLinux(t *testing.T) {
+	id, err := Network.GetSystemUUIDForLinux()
+	if err != nil {
+		assert.Equal(t, id, "", "The two item should be the same.")
+		return
+	}
+	assert.NotEqual(t, id, "")
+}
