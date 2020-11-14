@@ -96,3 +96,41 @@ func TestGetMinAndMax(t *testing.T) {
 	assert.Equal(t, expectedMin, min, "The two item should be the same.")
 	assert.Equal(t, expectedMax, max, "The two item should be the same.")
 }
+
+func TestGetUnionForInt(t *testing.T) {
+	source := []int{33, 2, 1112, 44122}
+	source2 := []int{22, 33, 4, 5, 6}
+	expected := []int{33, 2, 1112, 44122, 22, 4, 5, 6}
+
+	res := Array.GetUnionForInt(source, source2)
+	assert.Equal(t, expected, res, "The two item should be the same.")
+
+}
+
+func TestGetUnionForString(t *testing.T) {
+	source := []string{`33`, `2`, `1112`, `44122`}
+	source2 := []string{`22`, `33`, `4`, `5`, `6`}
+	expected := []string{`33`, `2`, `1112`, `44122`, `22`, `4`, `5`, `6`}
+
+	res := Array.GetUnionForString(source, source2)
+	assert.Equal(t, expected, res, "The two item should be the same.")
+}
+
+func TestGetIntersectForInt(t *testing.T) {
+	source := []int{33, 2, 1112, 44122}
+	source2 := []int{22, 33, 1112, 44122, 6}
+	expected := []int{33, 1112, 44122}
+
+	res := Array.GetIntersectForInt(source, source2)
+	assert.Equal(t, expected, res, "The two item should be the same.")
+
+}
+
+func TestGetIntersectForString(t *testing.T) {
+	source := []string{`33`, `2`, `1112`, `44122`}
+	source2 := []string{`22`, `33`, `4`, `5`, `6`}
+	expected := []string{`33`}
+
+	res := Array.GetIntersectForString(source, source2)
+	assert.Equal(t, expected, res, "The two item should be the same.")
+}

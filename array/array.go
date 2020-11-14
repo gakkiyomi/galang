@@ -109,3 +109,68 @@ func (*GalangArray) GetMinAndMax(arr []int) (int, int) {
 	}
 	return min, max
 }
+
+//GetUnionForInt  获取两个int数组之间的并集
+func (*GalangArray) GetUnionForInt(arr1, arr2 []int) []int {
+	m := make(map[int]struct{}, len(arr1))
+	for _, v := range arr1 {
+		m[v] = struct{}{}
+	}
+	for _, v := range arr2 {
+		if _, ok := m[v]; ok {
+			continue
+		}
+		arr1 = append(arr1, v)
+	}
+	return arr1
+}
+
+//GetUnionForString   获取两个字符串数组之间的并集
+func (*GalangArray) GetUnionForString(arr1, arr2 []string) []string {
+	m := make(map[string]struct{}, len(arr1))
+	for _, v := range arr1 {
+		m[v] = struct{}{}
+	}
+	for _, v := range arr2 {
+		if _, ok := m[v]; ok {
+			continue
+		}
+		arr1 = append(arr1, v)
+	}
+	return arr1
+}
+
+//GetIntersectForInt  获取两个int数组之间的交集
+func (*GalangArray) GetIntersectForInt(arr1, arr2 []int) []int {
+
+	res := make([]int, 0)
+
+	m := make(map[int]struct{}, len(arr1))
+	for _, v := range arr1 {
+		m[v] = struct{}{}
+	}
+	for _, v := range arr2 {
+		if _, ok := m[v]; ok {
+			res = append(res, v)
+		}
+
+	}
+	return res
+}
+
+//GetIntersectForString   获取两个字符串数组之间的交集
+func (*GalangArray) GetIntersectForString(arr1, arr2 []string) []string {
+	res := make([]string, 0)
+
+	m := make(map[string]struct{}, len(arr1))
+	for _, v := range arr1 {
+		m[v] = struct{}{}
+	}
+	for _, v := range arr2 {
+		if _, ok := m[v]; ok {
+			res = append(res, v)
+		}
+
+	}
+	return res
+}
