@@ -52,8 +52,12 @@
 * Array deduplication
 * String to String array
 * Reverse array/silce
-* Get max vlaue in int array
-* Get min vlaue in int array
+* Get max value from int array
+* Get min value from int array
+* Get unionsection from int array
+* Get unionsection from string array
+* Get intersection from int array
+* Get intersection from string array
 
 ### Structure `structure`
 
