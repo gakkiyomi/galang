@@ -57,6 +57,8 @@
 * 获取两个string数组的并集
 * 获取两个int数组的交集
 * 获取两个string数组的交集
+* 获取两个int数组的差集
+* 获取两个string数组的差集
 
 ### 数据结构 `structure`
 

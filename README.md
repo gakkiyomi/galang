@@ -58,6 +58,8 @@
 * Get unionsection from string array
 * Get intersection from int array
 * Get intersection from string array
+* Get complement from int array
+* Get complement from string array
 
 ### Structure `structure`
 
