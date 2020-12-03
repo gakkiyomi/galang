@@ -14,7 +14,7 @@ type GalangArray byte
 
 var Array GalangArray
 
-//RemoveDuplicateInArray Remove duplicate strings from the given array.
+//RemoveDuplicateInStringArray Remove duplicate strings from the given array.
 func (*GalangArray) RemoveDuplicateInStringArray(source []string) []string {
 	var res []string
 
@@ -34,7 +34,7 @@ func (*GalangArray) RemoveDuplicateInStringArray(source []string) []string {
 	return res
 }
 
-//InsertAtIndex Insert a value in a string slice at a given index
+//InsertAtIndexByStringArray Insert a value in a string slice at a given index
 func (*GalangArray) InsertAtIndexByStringArray(src []string, v string, index int) (res []string) {
 	res = append(src, "")
 	copy(res[index+1:], res[index:])
@@ -42,7 +42,7 @@ func (*GalangArray) InsertAtIndexByStringArray(src []string, v string, index int
 	return
 }
 
-//InsertAtIndex Insert a value in a int slice at a given index
+//InsertAtIndexByIntArray Insert a value in a int slice at a given index
 func (*GalangArray) InsertAtIndexByIntArray(src []int, v int, index int) (res []int) {
 	res = append(src, -1)
 	copy(res[index+1:], res[index:])
@@ -94,6 +94,7 @@ func (*GalangArray) GetMinInArray(arr []int) int {
 	return min
 }
 
+//GetMinAndMax 获取数组最小值和最大值
 func (*GalangArray) GetMinAndMax(arr []int) (int, int) {
 	len := len(arr)
 	min := arr[0]
