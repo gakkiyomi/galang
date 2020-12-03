@@ -174,3 +174,51 @@ func (*GalangArray) GetIntersectForString(arr1, arr2 []string) []string {
 	}
 	return res
 }
+
+//GetComplementForInt  获取两个int数组之间的差集
+func (*GalangArray) GetComplementForInt(arr1, arr2 []int) []int {
+	m := make(map[int]bool, 0)
+	res := make([]int, 0)
+	for _, v := range arr1 {
+		m[v] = true
+	}
+
+	for _, v := range arr2 {
+		if _, ok := m[v]; ok {
+			m[v] = false
+		} else {
+			res = append(res, v)
+		}
+	}
+
+	for k, v := range m {
+		if v == true {
+			res = append(res, k)
+		}
+	}
+	return res
+}
+
+//GetComplementForString  获取两个字符串数组之间的差集
+func (*GalangArray) GetComplementForString(arr1, arr2 []string) []string {
+	m := make(map[string]bool, 0)
+	res := make([]string, 0)
+	for _, v := range arr1 {
+		m[v] = true
+	}
+
+	for _, v := range arr2 {
+		if _, ok := m[v]; ok {
+			m[v] = false
+		} else {
+			res = append(res, v)
+		}
+	}
+
+	for k, v := range m {
+		if v == true {
+			res = append(res, k)
+		}
+	}
+	return res
+}

@@ -134,3 +134,47 @@ func TestGetIntersectForString(t *testing.T) {
 	res := Array.GetIntersectForString(source, source2)
 	assert.Equal(t, expected, res, "The two item should be the same.")
 }
+
+func TestGetComplementForString(t *testing.T) {
+	source := []string{`1`, `2`, `3`, `4`}
+	source2 := []string{`3`, `4`, `5`, `6`}
+	res := Array.GetComplementForString(source, source2)
+	assert.Equal(t, 4, len(res))
+
+	source3 := []string{`1`, `2`, `3`, `4`}
+	source4 := []string{`5`, `7`, `8`, `51`}
+	res2 := Array.GetComplementForString(source3, source4)
+	assert.Equal(t, 8, len(res2))
+
+	source5 := []string{`1`, `2`, `3`, `4`}
+	source6 := []string{`1`, `2`, `3`, `4`}
+	res3 := Array.GetComplementForString(source5, source6)
+	assert.Equal(t, 0, len(res3))
+
+	source7 := []string{`1`, `2`, `3`, `4`}
+	source8 := []string{`1`, `2`, `3`}
+	res4 := Array.GetComplementForString(source7, source8)
+	assert.Equal(t, 1, len(res4))
+}
+
+func TestGetComplementForInt(t *testing.T) {
+	source := []int{1, 2, 3, 4}
+	source2 := []int{3, 4, 5, 6}
+	res := Array.GetComplementForInt(source, source2)
+	assert.Equal(t, 4, len(res))
+
+	source3 := []int{1, 2, 3, 4}
+	source4 := []int{5, 7, 8, 51}
+	res2 := Array.GetComplementForInt(source3, source4)
+	assert.Equal(t, 8, len(res2))
+
+	source5 := []int{1, 2, 3, 4}
+	source6 := []int{1, 2, 3, 4}
+	res3 := Array.GetComplementForInt(source5, source6)
+	assert.Equal(t, 0, len(res3))
+
+	source7 := []int{1, 2, 3, 4}
+	source8 := []int{1, 2, 3}
+	res4 := Array.GetComplementForInt(source7, source8)
+	assert.Equal(t, 1, len(res4))
+}
