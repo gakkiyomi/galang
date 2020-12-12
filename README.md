@@ -2,7 +2,7 @@
 ## 💡 简介
 
 
-[Galang](https://github.com/gakkiyomi/galang) Some utils for the Go: network,network address,string,algorithms/structure,array/silce
+[Galang](https://github.com/gakkiyomi/galang) Some utils for the Go: network address,string,algorithms/structure,array/silce
 
 
 > **[中文说明](README.zh-CN.md)**
