@@ -223,3 +223,19 @@ func (*GalangArray) GetComplementForString(arr1, arr2 []string) []string {
 	}
 	return res
 }
+
+//BinraySearch 二分查找，数组必须是已排序状态
+func (*GalangArray) BinraySearch(arr []int, num int) bool {
+	left, right := 0, len(arr)
+	for left <= right {
+		mid := (left + right) / 2
+		if arr[mid] == num {
+			return true
+		} else if arr[mid] < num {
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
+	}
+	return false
+}

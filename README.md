@@ -60,6 +60,7 @@
 * Get intersection from string array
 * Get complement from int array
 * Get complement from string array
+* BinarySerch(array must be sorted by asc)
 
 ### Structure `structure`
 

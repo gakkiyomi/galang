@@ -178,3 +178,9 @@ func TestGetComplementForInt(t *testing.T) {
 	res4 := Array.GetComplementForInt(source7, source8)
 	assert.Equal(t, 1, len(res4))
 }
+
+func TestBinarySearch(t *testing.T) {
+	arr := []int{1, 4, 6, 11, 22, 44, 52, 61, 77, 88, 222, 444, 555, 6777, 111414}
+	bool := Array.BinraySearch(arr, 444)
+	assert.Equal(t, true, bool)
+}
