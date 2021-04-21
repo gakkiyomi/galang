@@ -18,6 +18,10 @@ type (
 	GalangString byte
 )
 
+type StringBuilder struct {
+	Builder *strings.Builder
+}
+
 var (
 	String GalangString
 )
@@ -56,4 +60,24 @@ func (*GalangString) IsBlank(str string) bool {
 //IsNotBlank check a string is not blank
 func (gs *GalangString) IsNotBlank(str string) bool {
 	return !gs.IsBlank(str)
+}
+
+//NewStringBuilder 创建Builder对象
+func (gs *GalangString) NewStringBuilder(s string) *StringBuilder {
+	var b strings.Builder
+	b.WriteString(s)
+	return &StringBuilder{
+		Builder: &b,
+	}
+}
+
+//Append 拼接字符串
+func (gs *StringBuilder) Append(s string) *StringBuilder {
+	gs.Builder.WriteString(s)
+	return gs
+}
+
+//ToString 返回字符串拼接结果
+func (gs *StringBuilder) ToString() string {
+	return gs.Builder.String()
 }

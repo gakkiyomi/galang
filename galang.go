@@ -11,11 +11,15 @@
 package main
 
 import (
+	"fmt"
+
+	"github.com/gakkiyomi/galang/net"
 	"github.com/gakkiyomi/galang/sort"
 )
 
 func main() {
 	source := []int{1, 4, 2, 44, 22, 13, 222, 441, 3, 54}
 	sort.BubbleSort(source)
-
+	info, _ := net.NewSubnetInfo("192.168.1.0/24")
+	fmt.Println(info.ToString())
 }

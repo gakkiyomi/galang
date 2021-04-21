@@ -44,6 +44,7 @@
 * 字符串是否已xx结尾
 * 判断包含字串忽略大小写
 * 判断字符串是否为空白字符串
+* java StringBuilder go版本实现
 
 ### 数组 `array.Array`
 
@@ -108,7 +109,7 @@
 ## 特别感谢
 [gosnmp # 不错的SNMP客户端](https://github.com/alouca/gosnmp)
 
-[gosnmp # 牛逼的NMAP客户端](https://github.com/Ullaakut/nmap)
+[nmap # 牛逼的NMAP客户端](https://github.com/Ullaakut/nmap)
 
 [dmidecode # dmidecode解析类库](https://github.com/dselans/dmidecode)
 

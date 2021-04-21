@@ -33,3 +33,12 @@ func TestIsBlank(t *testing.T) {
 	assert.Equal(t, false, f, "The two item should be the same.")
 
 }
+
+func TestStringBuilder(t *testing.T) {
+
+	builder := String.NewStringBuilder("fangcong")
+	builder.Append("\r\n").Append("哈哈哈")
+	s := builder.ToString()
+	expected := "fangcong\r\n" + "哈哈哈"
+	assert.Equal(t, expected, s, "The two item should be the same.")
+}
