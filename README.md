@@ -45,6 +45,7 @@
 * Does the string end with xx
 * Judgment contains string ignore case
 * Determine whether the string is a blank string
+* StringBuilder go version
 
 ### Array `array.Array`
 
@@ -109,7 +110,7 @@
 ## Thanks
 [gosnmp # good SNMP client](https://github.com/alouca/gosnmp)
 
-[gosnmp # great NMAP client](https://github.com/Ullaakut/nmap)
+[nmap # great NMAP client](https://github.com/Ullaakut/nmap)
 
 [dmidecode # dmidecode library](https://github.com/dselans/dmidecode)
 

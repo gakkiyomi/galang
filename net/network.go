@@ -19,14 +19,16 @@ import (
 	"net/http"
 	"regexp"
 	"runtime"
+	"strconv"
 	"strings"
 
 	"github.com/dselans/dmidecode"
+	str "github.com/gakkiyomi/galang/string"
 	"github.com/gakkiyomi/galang/utils"
 	"github.com/songtianyi/rrframework/logs"
 )
 
-//SubnetInfo  java subnetutils的go版本实现
+//SubnetInfo  apache subnetutils for go version
 type SubnetInfo struct {
 	netmask   uint32 //子网掩码
 	network   uint32 //网络位
@@ -81,6 +83,19 @@ func NewSubnetInfo(cidr string) (*SubnetInfo, error) {
 		cidr:      cidr,
 		fullCidr:  fullCidr,
 	}, nil
+}
+
+//ToString 返回SubnetInfo的数据
+func (s *SubnetInfo) ToString() string {
+	builder := str.String.NewStringBuilder("")
+	builder.Append("CIDR Signature:\t[").Append(s.GetCidrSignature()).Append("]")
+	builder.Append(" Netmask: [").Append(s.NetmaskString()).Append("]\n")
+	builder.Append("Network:\t[").Append(s.NetworkString()).Append("]\n")
+	builder.Append("Broadcast:\t[").Append(s.BradcastString()).Append("]\n")
+	builder.Append("First Address:\t[").Append(s.LowAddress()).Append("]\n")
+	builder.Append("Last Address:\t[").Append(s.HighAddress()).Append("]\n")
+	builder.Append("# Addresses:\t[").Append(strconv.Itoa(int(s.Size()))).Append("]\n")
+	return builder.ToString()
 }
 
 //AddressString 获取ip地址
