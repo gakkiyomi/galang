@@ -147,12 +147,20 @@ func (*GalangArray) GetIntersectForInt(arr1, arr2 []int) []int {
 	res := make([]int, 0)
 
 	m := make(map[int]struct{}, len(arr1))
+	m2 := make(map[int]struct{}, 0)
 	for _, v := range arr1 {
 		m[v] = struct{}{}
 	}
 	for _, v := range arr2 {
 		if _, ok := m[v]; ok {
-			res = append(res, v)
+			if _, ok := m2[v]; ok {
+				//存在
+				continue
+			} else {
+				//不存在
+				m2[v] = struct{}{}
+				res = append(res, v)
+			}
 		}
 
 	}
@@ -164,12 +172,20 @@ func (*GalangArray) GetIntersectForString(arr1, arr2 []string) []string {
 	res := make([]string, 0)
 
 	m := make(map[string]struct{}, len(arr1))
+	m2 := make(map[string]struct{}, 0)
 	for _, v := range arr1 {
 		m[v] = struct{}{}
 	}
 	for _, v := range arr2 {
 		if _, ok := m[v]; ok {
-			res = append(res, v)
+			if _, ok := m2[v]; ok {
+				//存在
+				continue
+			} else {
+				//不存在
+				m2[v] = struct{}{}
+				res = append(res, v)
+			}
 		}
 
 	}

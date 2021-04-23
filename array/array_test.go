@@ -117,9 +117,9 @@ func TestGetUnionForString(t *testing.T) {
 }
 
 func TestGetIntersectForInt(t *testing.T) {
-	source := []int{33, 2, 1112, 44122}
-	source2 := []int{22, 33, 1112, 44122, 6}
-	expected := []int{33, 1112, 44122}
+	source := []int{33, 2, 1112, 44122, 2}
+	source2 := []int{22, 33, 1112, 44122, 6, 2, 2}
+	expected := []int{33, 1112, 44122, 2}
 
 	res := Array.GetIntersectForInt(source, source2)
 	assert.Equal(t, expected, res, "The two item should be the same.")
@@ -127,8 +127,8 @@ func TestGetIntersectForInt(t *testing.T) {
 }
 
 func TestGetIntersectForString(t *testing.T) {
-	source := []string{`33`, `2`, `1112`, `44122`}
-	source2 := []string{`22`, `33`, `4`, `5`, `6`}
+	source := []string{`33`, `2`, `1112`, `44122`, `1112`}
+	source2 := []string{`22`, `33`, `4`, `5`, `6`, `33`}
 	expected := []string{`33`}
 
 	res := Array.GetIntersectForString(source, source2)
