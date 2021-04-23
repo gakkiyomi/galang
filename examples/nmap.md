@@ -1,3 +1,6 @@
+# nmap example
+
+~~~go
 package main
 
 import (
@@ -102,3 +105,4 @@ func baseScan(target string) {
 	logs.Info(string(b2))
 	logs.Info("===========================================================")
 }
+~~~
