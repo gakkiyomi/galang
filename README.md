@@ -105,6 +105,11 @@
 * Generate a UUID
 * check if UUID is legal
 
+### 🔑 JetBrains OS licenses
+`galang` had been being developed with `GoLand IDE` under the free JetBrains Open Source license(s) granted by JetBrains s.r.o., hence I would like to express my thanks here.
+
+<a href="https://www.jetbrains.com/?from=galang" target="_blank"><img src="https://b3logfile.com/file/2021/05/jetbrains-variant-2-42d96aa4.png" width="250" align="middle"/></a>
+
 
 
 ## Thanks
