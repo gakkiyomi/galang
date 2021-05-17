@@ -104,6 +104,10 @@
 * 生成UUID
 * 检查一个字符串是否为UUID
 
+### 🔑 JetBrains 开源证书支持
+`galang` 项目一直以来都是在 JetBrains 公司旗下的 `GoLand` 集成开发环境中进行开发，基于 free JetBrains Open Source license(s) 正版免费授权，在此表达我的谢意。
+
+<a href="https://www.jetbrains.com/?from=galang" target="_blank"><img src="https://b3logfile.com/file/2021/05/jetbrains-variant-2-42d96aa4.png" width="250" align="middle"/></a>
 
 
 ## 特别感谢
