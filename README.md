@@ -11,7 +11,7 @@
    1. use go.mod
    2. `GOPROXY=direct go get -u github.com/gakkiyomi/galang`
 
-## ✨ Feature list
+## ✨ Feature List
 
 ### Network `net.Network`
 
