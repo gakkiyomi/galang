@@ -17,9 +17,9 @@ import (
 )
 
 func TestRemoveDuplicateInArray(t *testing.T) {
-	expected := []string{`1`, `2`, `a`, `abvvv`}
+	expected := []string{`1`, `2`, `a`, `abvvv`, `x`}
 
-	source := []string{`1`, `2`, `a`, `a`, `2`, `abvvv`, `a`, `abvvv`}
+	source := []string{`1`, `2`, `a`, `a`, `2`, `abvvv`, `a`, `abvvv`, `x`}
 
 	actual := Array.RemoveDuplicateInStringArray(source)
 
