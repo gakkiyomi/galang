@@ -23,7 +23,7 @@
 * Long type IP to IP string
 * IP string to Long type IP
 * Determine whether an IP address is range of a network segment
-* Get local dmidecode uuid (only linux)
+* Get local machine uuid (only linux)
 * Get all available addresses under a network segment (excluding broadcast addresses and network addresses)
 * IP longest prefix matching algorithm (LPM)
 * Get the network bit and broadcast bit of the network segment
