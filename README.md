@@ -1,13 +1,12 @@
 
 ## 💡 简介
 
-
 [Galang](https://github.com/gakkiyomi/galang) Some utils for the Go: network address,string,algorithms/structure,array/silce
-
 
 > **[中文说明](README.zh-CN.md)**
 
 ## use
+
    1. use go.mod
    2. `GOPROXY=direct go get -u github.com/gakkiyomi/galang`
 
@@ -45,7 +44,8 @@
 * Does the string end with xx
 * Judgment contains string ignore case
 * Determine whether the string is a blank string
-* StringBuilder go version
+* Determine whether the string has contains any blank string
+* Java StringBuilder in go
 
 ### Array `array.Array`
 
@@ -73,6 +73,7 @@
 * TODO | Graph
 
 ### Sort `sort`
+
 * Quick Sort
 * Selection Sort
 * Insertion Sort
@@ -102,17 +103,18 @@
 * Convert between string and other types
 
 ### UUID `utils.UUID`
+
 * Generate a UUID
 * check if UUID is legal
 
 ### 🔑 JetBrains OS licenses
+
 `galang` had been being developed with `GoLand IDE` under the free JetBrains Open Source license(s) granted by JetBrains s.r.o., hence I would like to express my thanks here.
 
 <a href="https://www.jetbrains.com/?from=galang" target="_blank"><img src="https://b3logfile.com/file/2021/05/jetbrains-variant-2-42d96aa4.png" width="250" align="middle"/></a>
 
-
-
 ## Thanks
+
 [gosnmp # good SNMP client](https://github.com/alouca/gosnmp)
 
 [nmap # great NMAP client](https://github.com/Ullaakut/nmap)

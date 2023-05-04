@@ -26,22 +26,22 @@ var (
 	String GalangString
 )
 
-//StartWith returns string s isStartWith suffix
+// StartWith returns string s isStartWith suffix
 func (*GalangString) StartWith(s, prefix string) bool {
 	return len(s) >= len(prefix) && s[0:len(prefix)] == prefix
 }
 
-//EndWith returns string s isEndWith suffix
+// EndWith returns string s isEndWith suffix
 func (*GalangString) EndWith(s, suffix string) bool {
 	return len(s) >= len(suffix) && s[len(s)-len(suffix):] == suffix
 }
 
-//ContainsIgnoreCase cotains ingore case
+// ContainsIgnoreCase cotains ingore case
 func (*GalangString) ContainsIgnoreCase(s, substr string) bool {
 	return strings.Contains(strings.ToLower(s), strings.ToLower(substr))
 }
 
-//IsBlank check a string isblank
+// IsBlank check a string isblank
 func (*GalangString) IsBlank(str string) bool {
 
 	if len(str) == 0 {
@@ -57,12 +57,27 @@ func (*GalangString) IsBlank(str string) bool {
 	return true
 }
 
-//IsNotBlank check a string is not blank
+// IsNotBlank check a string is not blank
 func (gs *GalangString) IsNotBlank(str string) bool {
 	return !gs.IsBlank(str)
 }
 
-//NewStringBuilder 创建Builder对象
+// IsAnyBlank check a string contains any blank char
+func (gs *GalangString) IsAnyBlank(str string) bool {
+	if len(str) == 0 {
+		return true
+	}
+	src := []rune(str)
+	for _, v := range src {
+		x := string(v)
+		if x == " " {
+			return true
+		}
+	}
+	return false
+}
+
+// NewStringBuilder 创建Builder对象
 func (gs *GalangString) NewStringBuilder(s string) *StringBuilder {
 	var b strings.Builder
 	b.WriteString(s)
@@ -71,13 +86,13 @@ func (gs *GalangString) NewStringBuilder(s string) *StringBuilder {
 	}
 }
 
-//Append 拼接字符串
+// Append 拼接字符串
 func (gs *StringBuilder) Append(s string) *StringBuilder {
 	gs.Builder.WriteString(s)
 	return gs
 }
 
-//ToString 返回字符串拼接结果
+// ToString 返回字符串拼接结果
 func (gs *StringBuilder) ToString() string {
 	return gs.Builder.String()
 }

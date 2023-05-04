@@ -3,10 +3,10 @@
 
 [Galang](https://github.com/gakkiyomi/galang) 是一款包含了网络地址相关，字符串相关，算法和数据结构等 Go 语言常用工具库。
 
-
 > **[EN README](README.md)**
 
 ## 使用
+
    1. 直接在go.mod中引用
    2. `GOPROXY=direct go get -u github.com/gakkiyomi/galang`
 
@@ -44,6 +44,7 @@
 * 字符串是否已xx结尾
 * 判断包含字串忽略大小写
 * 判断字符串是否为空白字符串
+* 判断字符串是否包含任意空白字符串
 * java StringBuilder go版本实现
 
 ### 数组 `array.Array`
@@ -72,6 +73,7 @@
 * TODO 图
 
 ### 排序算法 `sort`
+
 * 冒泡排序
 * 选择排序
 * 插入排序
@@ -101,16 +103,18 @@
 * 封装字符串与其他类型相互转换
 
 ### UUID `utils.UUID`
+
 * 生成UUID
 * 检查一个字符串是否为UUID
 
 ### 🔑 JetBrains 开源证书支持
+
 `galang` 项目一直以来都是在 JetBrains 公司旗下的 `GoLand` 集成开发环境中进行开发，基于 free JetBrains Open Source license(s) 正版免费授权，在此表达我的谢意。
 
 <a href="https://www.jetbrains.com/?from=galang" target="_blank"><img src="https://b3logfile.com/file/2021/05/jetbrains-variant-2-42d96aa4.png" width="250" align="middle"/></a>
 
-
 ## 特别感谢
+
 [gosnmp # 不错的SNMP客户端](https://github.com/alouca/gosnmp)
 
 [nmap # 牛逼的NMAP客户端](https://github.com/Ullaakut/nmap)
