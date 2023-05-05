@@ -14,8 +14,10 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"os"
+	"path"
 
 	"github.com/beevik/etree"
+	str "github.com/gakkiyomi/galang/string"
 	"github.com/songtianyi/rrframework/logs"
 )
 
@@ -23,7 +25,17 @@ type GalangFile byte
 
 var File GalangFile
 
-//GetFileSize get the length in bytes of file of the specified path.
+// GetFileName getFileName from a full filePath
+func (*GalangFile) GetFileName(filePath string) (name string) {
+	name = ""
+	if str.String.IsBlank(filePath) {
+		return
+	}
+	name = path.Base(filePath)
+	return
+}
+
+// GetFileSize get the length in bytes of file of the specified path.
 func (*GalangFile) GetFileSize(path string) int64 {
 	file, err := os.Stat(path)
 	if err != nil {
@@ -33,7 +45,7 @@ func (*GalangFile) GetFileSize(path string) int64 {
 	return file.Size()
 }
 
-//IsJSONFile check one file is json file
+// IsJSONFile check one file is json file
 func (file *GalangFile) IsJSONFile(path string) bool {
 	b, err := ioutil.ReadFile(path)
 	if err != nil {
@@ -43,12 +55,12 @@ func (file *GalangFile) IsJSONFile(path string) bool {
 	return file.IsJSONByte(b)
 }
 
-//IsJSONByte check one []byte is json file
+// IsJSONByte check one []byte is json file
 func (*GalangFile) IsJSONByte(b []byte) bool {
 	return json.Valid(b)
 }
 
-//IsXmlFile check one file is xml file
+// IsXmlFile check one file is xml file
 func (file *GalangFile) IsXmlFile(path string) bool {
 	b, err := ioutil.ReadFile(path)
 	if err != nil {
@@ -57,7 +69,7 @@ func (file *GalangFile) IsXmlFile(path string) bool {
 	return file.IsXmlByte(b)
 }
 
-//IsXmlByte check one []byte is xml file
+// IsXmlByte check one []byte is xml file
 func (*GalangFile) IsXmlByte(b []byte) bool {
 	doc := etree.NewDocument()
 	if err := doc.ReadFromBytes(b); err != nil {

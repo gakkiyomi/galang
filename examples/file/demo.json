@@ -1,0 +1,85 @@
+{
+    "description": "string",
+    "groups": [
+  {
+        "metadata": {
+            "steps":[
+                {
+                    "doCommand":"设备0 第一步",
+                    "rollbackCommand": "设备1 回滚第一步"
+                },
+                {
+                    "doCommand":"设备0 第二步",
+                    "rollbackCommand": "设备2 回滚第二步"
+                }
+             ]
+        },
+        "targets": [
+          {
+            "id": "1a5a27fa-cfc9-4636-8fd8-aa86ed5bbf30"
+          }
+        ]
+      },
+      {
+        "metadata": {
+            "steps":[
+                {
+                    "doCommand":"设备1 第一步",
+                    "rollbackCommand": "设备1 回滚第一步"
+                },
+                {
+                    "doCommand":"设备1 第二步",
+                    "rollbackCommand": "设备2 回滚第二步"
+                }
+             ]
+        },
+        "targets": [
+          {
+            "id": "e89a58f3-11b6-4d0e-aee2-65403a168b25"
+          }
+        ]
+      },
+      {
+        "metadata": {
+            "steps":[
+                {
+                    "doCommand":"设备1 第三步",
+                    "rollbackCommand": "设备1 回滚第三步"
+                }
+             ]
+        },
+        "targets": [
+          {
+            "id": "e89a58f3-11b6-4d0e-aee2-65403a168b25"
+          },
+          {
+            "id": "1a5a27fa-cfc9-4636-8fd8-aa86ed5bbf30"
+          }
+        ]
+      },
+      {
+        "metadata": {
+            "steps":[
+                {
+                    "doCommand":"设备3 第1步",
+                    "rollbackCommand": "设备3 回滚第1步"
+                }
+             ]
+        },
+        "targets": [
+          {
+            "id": "7670e80e-0e25-4179-bcd5-a3b3e8ad69c7"
+            
+          }, {"id":"af02953b-e719-45e7-b028-a543353445d6"}
+        ]
+      }
+    ],
+    "name": "test",
+    "options": {
+      "jobErrorStop": true,
+      "stepErrorStop": true
+    },
+    "scheduleAt": {
+      "mode": "ONCE_IMMEDIATELY"
+    }
+  }
