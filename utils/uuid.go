@@ -14,13 +14,20 @@ import (
 	uuid "github.com/satori/go.uuid"
 )
 
+// NewUUID return a random generated UUID
 func (*GalangUUID) NewUUID() string {
 	u1 := uuid.Must(uuid.NewV4(), nil)
 	return u1.String()
 }
 
-func (*GalangUUID) Check(str string) bool {
-	_, err := uuid.FromString(str)
+// FromString return a UUID instance from string
+func (*GalangUUID) FromString(str string) (uuid.UUID, error) {
+	return uuid.FromString(str)
+}
+
+// Check check input is valid UUID String
+func (id *GalangUUID) Check(str string) bool {
+	_, err := id.FromString(str)
 	if err != nil {
 		return false
 	}
