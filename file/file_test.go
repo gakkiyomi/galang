@@ -17,6 +17,14 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestGetFileSize(t *testing.T) {
+	size1 := File.GetFileSize("../examples/file/demo.json")
+	size2 := File.GetFileSize("../examples/file/demo copy.json")
+	assert.Equal(t, size1, size2)
+	errorCase := File.GetFileSize("../examples/file/demoopy.json")
+	assert.Equal(t, int64(-1), errorCase)
+}
+
 func TestGetFileName(t *testing.T) {
 	a := File.GetFileName("a/b/c/ac/fangcong.txt")
 	b := File.GetFileName("")
