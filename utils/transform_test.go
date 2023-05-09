@@ -22,3 +22,13 @@ func TestInt(t *testing.T) {
 	assert.Equal(t, "5", res1)
 	assert.Equal(t, 5, res2)
 }
+
+func TestAnyToString(t *testing.T) {
+	assert.Equal(t, "1", Transform.AnyToString(1))
+	assert.Equal(t, "1.5", Transform.AnyToString(1.5))
+	assert.Equal(t, "{\"apple\":1,\"banana\":2,\"orange\":3}", Transform.AnyToString(map[string]int{
+		"apple":  1,
+		"banana": 2,
+		"orange": 3,
+	}))
+}
