@@ -11,14 +11,13 @@
 package utils
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNewUUID(t *testing.T) {
-	fmt.Println(UUID.NewUUID())
+	assert.NotEqual(t, nil, UUID.NewUUID())
 }
 
 func TestCheckUUID(t *testing.T) {
