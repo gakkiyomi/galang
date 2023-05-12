@@ -148,6 +148,12 @@ func TestRange(t *testing.T) {
 
 }
 
+func TestSubnetInfoIsRangeOf(t *testing.T) {
+	info, _ := NewSubnetInfo("192.168.1.0/24")
+	isRangeOf, _ := info.IsRangeOf("192.168.1.1")
+	assert.Equal(t, true, isRangeOf)
+}
+
 func TestIPSFormat(t *testing.T) {
 	expected := []string{`192.168.1.33`}
 	expectedRange := []string{`192.168.1.33`, `192.168.1.34`, `192.168.1.35`}
