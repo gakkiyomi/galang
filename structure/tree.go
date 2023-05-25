@@ -14,7 +14,7 @@ import (
 	"math"
 )
 
-//NewBinaryTree 构造器
+// NewBinaryTree 构造器
 func NewBinaryTree(v interface{}) *BinaryTree {
 	return &BinaryTree{
 		Root: &BinaryTreeNode{
@@ -28,7 +28,7 @@ func AddNode(v interface{}) *BinaryTreeNode {
 	}
 }
 
-//PreOrder 前序遍历
+// PreOrder 前序遍历
 func (bt *BinaryTree) PreOrder() []interface{} {
 	return preOrder(bt.Root)
 }
@@ -43,7 +43,7 @@ func preOrder(root *BinaryTreeNode) []interface{} {
 	return res
 }
 
-//MiddleOrder 中序遍历
+// MiddleOrder 中序遍历
 func (bt *BinaryTree) MiddleOrder() []interface{} {
 	return middleOrder(bt.Root)
 }
@@ -59,7 +59,7 @@ func middleOrder(root *BinaryTreeNode) []interface{} {
 	return res
 }
 
-//PostOrder 后序遍历
+// PostOrder 后序遍历
 func (bt *BinaryTree) PostOrder() []interface{} {
 	return postOrder(bt.Root)
 }
@@ -75,7 +75,7 @@ func postOrder(root *BinaryTreeNode) []interface{} {
 	return res
 }
 
-//BFS 层次遍历
+// BFS 层次遍历
 func (bt *BinaryTree) BFS() []interface{} {
 	res := make([]interface{}, 0)
 	if bt != nil {
@@ -95,7 +95,7 @@ func (bt *BinaryTree) BFS() []interface{} {
 	return res
 }
 
-//IsBalanced check this tree is balanced
+// IsBalanced check this tree is balanced
 func (bt *BinaryTree) IsBalanced() bool {
 	if recur(bt.Root) == -1 {
 		return false
@@ -103,7 +103,7 @@ func (bt *BinaryTree) IsBalanced() bool {
 	return true
 }
 
-//High returns this tree high
+// High returns this tree high
 func (bt *BinaryTree) High() int {
 	return high(bt.Root)
 }
@@ -119,7 +119,7 @@ func high(root *BinaryTreeNode) int {
 	return int(math.Max(float64(left), float64(right))) + 1
 }
 
-//Size returns this tree node size
+// Size returns this tree node size
 func (bt *BinaryTree) Size() int {
 	return size(bt.Root)
 }

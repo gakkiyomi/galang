@@ -33,24 +33,25 @@ type (
 		len  int
 	}
 
+	//Heap struct
+	Heap struct {
+		Items []int
+	}
+
 	//BinaryTree struct
+	BinaryTree struct {
+		Root *BinaryTreeNode
+	}
+
 	BinaryTreeNode struct {
 		V     interface{}
 		Left  *BinaryTreeNode
 		Right *BinaryTreeNode
 	}
 
-	BinaryTree struct {
-		Root *BinaryTreeNode
-	}
-
 	node struct {
 		pre  *node
 		v    interface{}
 		next *node
-	}
-
-	Heap struct {
-		Items []int
 	}
 )
