@@ -20,6 +20,24 @@ type (
 		IsEmpty() bool
 	}
 
+	//RingBuffer
+	RingBuffer[T any] interface {
+		Put(T) bool
+		Get() T
+		GetAll() []T
+		Len() int
+		IsFull() bool
+		IsEmpty() bool
+	}
+
+	ArrayRingBuffer[T any] struct {
+		buffer     []T
+		cap        int
+		len        int
+		wirteIndex int
+		readIndex  int
+	}
+
 	//LinkedStack is use Linked list achieve stack
 	LinkedStack struct {
 		head *node
