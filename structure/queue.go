@@ -10,14 +10,14 @@
 
 package structure
 
-//NewQueue retruns a Queue
-func NewQueue() *Queue {
-	return &Queue{nil, nil, 0}
+// NewQueue retruns a Queue
+func NewQueue[T any]() *Queue[T] {
+	return &Queue[T]{nil, nil, 0}
 }
 
-//Offer a value into queue
-func (q *Queue) Offer(v interface{}) {
-	n := &node{nil, v, nil}
+// Offer a value into queue
+func (q *Queue[T]) Offer(v T) {
+	n := &node[T]{nil, v, nil}
 	if q.len == 0 {
 		q.tail = n
 		q.head = n
@@ -29,41 +29,42 @@ func (q *Queue) Offer(v interface{}) {
 	q.len++
 }
 
-//Poll a value out of queue
-func (q *Queue) Poll() interface{} {
+// Poll a value out of queue
+func (q *Queue[T]) Poll() (data T) {
 	if q.len == 0 {
-		return nil
+		return data
 	}
 	res := q.head
 	q.head = q.head.next
 	q.len--
-	return res.v
-
+	data = res.v
+	return
 }
 
-//Peek retrun head node value ,if queue isEmpty return nil
-func (q *Queue) Peek() interface{} {
+// Peek retrun head node value ,if queue isEmpty return nil
+func (q *Queue[T]) Peek() (data T) {
 	if q.len == 0 {
-		return nil
+		return
 	}
-	return q.head.v
+	data = q.head.v
+	return
 }
 
-//Len returns the queue length
-func (q *Queue) Len() int {
+// Len returns the queue length
+func (q *Queue[T]) Len() int {
 	return q.len
 }
 
-//IsEmpty return this queue isempty
-func (q *Queue) IsEmpty() bool {
+// IsEmpty return this queue isempty
+func (q *Queue[T]) IsEmpty() bool {
 	return q.Len() == 0
 }
 
 //------------------------Deque------------------------------
 
-//OfferLeft  insert a value into queue head
-func (q *Queue) OfferLeft(v interface{}) {
-	n := &node{nil, v, nil}
+// OfferLeft  insert a value into queue head
+func (q *Queue[T]) OfferLeft(v T) {
+	n := &node[T]{nil, v, nil}
 	if q.len == 0 {
 		q.tail = n
 		q.head = n
@@ -75,28 +76,30 @@ func (q *Queue) OfferLeft(v interface{}) {
 	q.len++
 }
 
-//PollLeft  delete a value into queue head
-func (q *Queue) PollLeft() interface{} {
+// PollLeft  delete a value into queue head
+func (q *Queue[T]) PollLeft() (data T) {
 	if q.len == 0 {
-		return nil
+		return
 	}
 	res := q.head
 	q.head = q.head.next
 	q.len--
-	return res.v
+	data = res.v
+	return
 }
 
-//Left get head in queue
-func (q *Queue) Left() interface{} {
+// Left get head in queue
+func (q *Queue[T]) Left() (data T) {
 	if q.len == 0 {
-		return nil
+		return
 	}
-	return q.head.v
+	data = q.head.v
+	return
 }
 
-//OfferRight  insert a value into queue tail
-func (q *Queue) OfferRight(v interface{}) {
-	n := &node{nil, v, nil}
+// OfferRight  insert a value into queue tail
+func (q *Queue[T]) OfferRight(v T) {
+	n := &node[T]{nil, v, nil}
 	if q.len == 0 {
 		q.tail = n
 		q.head = n
@@ -108,21 +111,23 @@ func (q *Queue) OfferRight(v interface{}) {
 	q.len++
 }
 
-//PollRight  delete a value into queue tail
-func (q *Queue) PollRight() interface{} {
+// PollRight  delete a value into queue tail
+func (q *Queue[T]) PollRight() (data T) {
 	if q.len == 0 {
-		return nil
+		return
 	}
 	res := q.tail
 	q.tail = q.tail.pre
 	q.len--
-	return res.v
+	data = res.v
+	return
 }
 
-//Right get last item in queue
-func (q *Queue) Right() interface{} {
+// Right get last item in queue
+func (q *Queue[T]) Right() (data T) {
 	if q.len == 0 {
-		return nil
+		return
 	}
-	return q.tail.v
+	data = q.tail.v
+	return
 }

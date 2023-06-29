@@ -17,13 +17,13 @@ import (
 )
 
 func TestStack(t *testing.T) {
-	stack := NewStack()
+	stack := NewStack[int]()
 	stack.Push(1)
 	stack.Push(2)
 	stack.Push(3)
 	assert.Equal(t, 3, stack.Pop(), "The two item should be the same.")
 	assert.Equal(t, 2, stack.Pop(), "The two item should be the same.")
 	assert.Equal(t, 1, stack.Pop(), "The two item should be the same.")
-	assert.Equal(t, nil, stack.Peek(), "The two item should be the same.")
+	assert.Equal(t, 0, stack.Peek(), "The two item should be the same.")
 
 }

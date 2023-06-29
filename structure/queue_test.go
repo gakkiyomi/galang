@@ -17,20 +17,22 @@ import (
 )
 
 func TestQueue(t *testing.T) {
-	queue := NewQueue()
+	queue := NewQueue[int]()
+	assert.Equal(t, true, queue.IsEmpty(), "The two item should be the same.")
 	queue.Offer(1)
 	queue.Offer(2)
-	queue.Offer(nil)
+	queue.Offer(5)
 	queue.Offer(3)
 	assert.Equal(t, 1, queue.Poll(), "The two item should be the same.")
 	assert.Equal(t, 2, queue.Poll(), "The two item should be the same.")
-	assert.Equal(t, nil, queue.Poll(), "The two item should be the same.")
+	assert.Equal(t, 5, queue.Poll(), "The two item should be the same.")
 	assert.Equal(t, 3, queue.Poll(), "The two item should be the same.")
-	assert.Equal(t, nil, queue.Peek(), "The two item should be the same.")
+	assert.Equal(t, 0, queue.Peek(), "The two item should be the same.")
 }
 
 func TestDeque(t *testing.T) {
-	queue := NewQueue()
+	queue := NewQueue[int]()
+	assert.Equal(t, true, queue.IsEmpty(), "The two item should be the same.")
 	queue.OfferLeft(33)
 	queue.OfferRight(22)
 	queue.OfferLeft(4)

@@ -11,42 +11,44 @@
 package structure
 
 // NewStack returns a Stack
-func NewStack() Stack {
-	return &LinkedStack{nil, 0}
+func NewStack[T any]() Stack[T] {
+	return &LinkedStack[T]{nil, 0}
 }
 
 // Len returns a stack length
-func (stack *LinkedStack) Len() int {
+func (stack *LinkedStack[T]) Len() int {
 	return stack.len
 }
 
 // Push a value into stack
-func (stack *LinkedStack) Push(v interface{}) {
-	n := &node{nil, v, stack.head}
+func (stack *LinkedStack[T]) Push(v T) {
+	n := &node[T]{nil, v, stack.head}
 	stack.head = n
 	stack.len++
 }
 
 // Pop a vlaue out of stack
-func (stack *LinkedStack) Pop() interface{} {
+func (stack *LinkedStack[T]) Pop() (data T) {
 	if stack.len == 0 {
-		return nil
+		return
 	}
 	res := stack.head
 	stack.head = res.next
 	stack.len--
-	return res.v
+	data = res.v
+	return data
 }
 
 // Peek returns the head of stack
-func (stack *LinkedStack) Peek() interface{} {
+func (stack *LinkedStack[T]) Peek() (data T) {
 	if stack.len == 0 {
-		return nil
+		return
 	}
-	return stack.head.v
+	data = stack.head.v
+	return
 }
 
 // IsEmpty 栈是否为空
-func (stack *LinkedStack) IsEmpty() bool {
+func (stack *LinkedStack[T]) IsEmpty() bool {
 	return stack.Len() == 0
 }

@@ -12,10 +12,10 @@ package structure
 
 type (
 	//Stack interface
-	Stack interface {
-		Push(interface{})
-		Pop() interface{}
-		Peek() interface{}
+	Stack[T any] interface {
+		Push(T)
+		Pop() T
+		Peek() T
 		Len() int
 		IsEmpty() bool
 	}
@@ -39,15 +39,15 @@ type (
 	}
 
 	//LinkedStack is use Linked list achieve stack
-	LinkedStack struct {
-		head *node
+	LinkedStack[T any] struct {
+		head *node[T]
 		len  int
 	}
 
 	//Queue struct
-	Queue struct {
-		head *node
-		tail *node
+	Queue[T any] struct {
+		head *node[T]
+		tail *node[T]
 		len  int
 	}
 
@@ -67,9 +67,9 @@ type (
 		Right *BinaryTreeNode
 	}
 
-	node struct {
-		pre  *node
-		v    interface{}
-		next *node
+	node[T any] struct {
+		pre  *node[T]
+		v    T
+		next *node[T]
 	}
 )
