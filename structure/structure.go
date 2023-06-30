@@ -11,7 +11,7 @@
 package structure
 
 type (
-	SingleBitMap struct {
+	BitMap struct {
 		bitmaps []uint64
 		len     int
 	}

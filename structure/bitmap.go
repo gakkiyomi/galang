@@ -10,23 +10,23 @@
 
 package structure
 
-func NewBitMap() *SingleBitMap {
-	return &SingleBitMap{}
+func NewBitMap() *BitMap {
+	return &BitMap{}
 }
 
-func (self *SingleBitMap) Has(num int) bool {
+func (self *BitMap) Has(num int) bool {
 	//bitmap 是指num在bitmap数组里是第几个bitmap中: num < 64  bitmap = 0  num >= 64 bitmap =1
 	//bit 是指 num在当前bitmap 0 的二进制表示中的index值
 	bitmap, bit := num/64, uint64(num%64)
 	return bitmap < len(self.bitmaps) && (self.bitmaps[bitmap]&(1<<bit)) != 0
 }
 
-func (self *SingleBitMap) Clear() {
+func (self *BitMap) Clear() {
 	self.bitmaps = nil
 	self.len = 0
 }
 
-func (self *SingleBitMap) Add(num int) {
+func (self *BitMap) Add(num int) {
 	bitmap, bit := num/64, uint64(num%64)
 	//如果传进来的数超过bitmap数组的最大值，需要将对bitmap进行扩容
 	for bitmap >= len(self.bitmaps) {
@@ -39,11 +39,11 @@ func (self *SingleBitMap) Add(num int) {
 	}
 }
 
-func (self *SingleBitMap) Len() int {
+func (self *BitMap) Len() int {
 	return self.len
 }
 
-func (self *SingleBitMap) Sort(nums []int) []int {
+func (self *BitMap) Sort(nums []int) []int {
 	for _, item := range nums {
 		self.Add(item)
 	}
