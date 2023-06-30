@@ -68,6 +68,7 @@
 * Stack
 * Queue
 * RingBuffer
+* BitMap
 * BinaryTree **No guarantee of balance**
 * Heap,(MaxHeap,MinHeap)
 * TODO | Red–black tree

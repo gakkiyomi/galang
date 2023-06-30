@@ -11,6 +11,10 @@
 package structure
 
 type (
+	SingleBitMap struct {
+		bitmaps []uint64
+		len     int
+	}
 	//Stack interface
 	Stack[T any] interface {
 		Push(T)
