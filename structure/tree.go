@@ -15,26 +15,26 @@ import (
 )
 
 // NewBinaryTree 构造器
-func NewBinaryTree(v interface{}) *BinaryTree {
-	return &BinaryTree{
-		Root: &BinaryTreeNode{
+func NewBinaryTree[T comparable](v T) *BinaryTree[T] {
+	return &BinaryTree[T]{
+		Root: &BinaryTreeNode[T]{
 			V: v,
 		}}
 }
 
-func AddNode(v interface{}) *BinaryTreeNode {
-	return &BinaryTreeNode{
+func AddNode[T comparable](v T) *BinaryTreeNode[T] {
+	return &BinaryTreeNode[T]{
 		V: v,
 	}
 }
 
 // PreOrder 前序遍历
-func (bt *BinaryTree) PreOrder() []interface{} {
+func (bt *BinaryTree[T]) PreOrder() []T {
 	return preOrder(bt.Root)
 }
 
-func preOrder(root *BinaryTreeNode) []interface{} {
-	res := make([]interface{}, 0)
+func preOrder[T comparable](root *BinaryTreeNode[T]) []T {
+	res := make([]T, 0)
 	if root != nil {
 		res = append(res, root.V)
 		res = append(res, preOrder(root.Left)...)
@@ -44,12 +44,12 @@ func preOrder(root *BinaryTreeNode) []interface{} {
 }
 
 // MiddleOrder 中序遍历
-func (bt *BinaryTree) MiddleOrder() []interface{} {
+func (bt *BinaryTree[T]) MiddleOrder() []T {
 	return middleOrder(bt.Root)
 }
 
-func middleOrder(root *BinaryTreeNode) []interface{} {
-	res := make([]interface{}, 0)
+func middleOrder[T comparable](root *BinaryTreeNode[T]) []T {
+	res := make([]T, 0)
 	if root != nil {
 		res = append(res, middleOrder(root.Left)...)
 		res = append(res, root.V)
@@ -60,12 +60,12 @@ func middleOrder(root *BinaryTreeNode) []interface{} {
 }
 
 // PostOrder 后序遍历
-func (bt *BinaryTree) PostOrder() []interface{} {
+func (bt *BinaryTree[T]) PostOrder() []T {
 	return postOrder(bt.Root)
 }
 
-func postOrder(root *BinaryTreeNode) []interface{} {
-	res := make([]interface{}, 0)
+func postOrder[T comparable](root *BinaryTreeNode[T]) []T {
+	res := make([]T, 0)
 	if root != nil {
 		res = append(res, postOrder(root.Left)...)
 		res = append(res, postOrder(root.Right)...)
@@ -76,10 +76,10 @@ func postOrder(root *BinaryTreeNode) []interface{} {
 }
 
 // BFS 层次遍历
-func (bt *BinaryTree) BFS() []interface{} {
+func (bt *BinaryTree[T]) BFS() []interface{} {
 	res := make([]interface{}, 0)
 	if bt != nil {
-		nodes := []*BinaryTreeNode{bt.Root}
+		nodes := []*BinaryTreeNode[T]{bt.Root}
 		for len(nodes) > 0 {
 			currentNode := nodes[0]
 			nodes = nodes[1:]
@@ -96,7 +96,7 @@ func (bt *BinaryTree) BFS() []interface{} {
 }
 
 // IsBalanced check this tree is balanced
-func (bt *BinaryTree) IsBalanced() bool {
+func (bt *BinaryTree[T]) IsBalanced() bool {
 	if recur(bt.Root) == -1 {
 		return false
 	}
@@ -104,11 +104,11 @@ func (bt *BinaryTree) IsBalanced() bool {
 }
 
 // High returns this tree high
-func (bt *BinaryTree) High() int {
+func (bt *BinaryTree[T]) High() int {
 	return high(bt.Root)
 }
 
-func high(root *BinaryTreeNode) int {
+func high[T comparable](root *BinaryTreeNode[T]) int {
 	if root == nil {
 		return 0
 	}
@@ -120,11 +120,11 @@ func high(root *BinaryTreeNode) int {
 }
 
 // Size returns this tree node size
-func (bt *BinaryTree) Size() int {
+func (bt *BinaryTree[T]) Size() int {
 	return size(bt.Root)
 }
 
-func size(root *BinaryTreeNode) int {
+func size[T comparable](root *BinaryTreeNode[T]) int {
 	if root == nil {
 		return 0
 	}
@@ -134,7 +134,7 @@ func size(root *BinaryTreeNode) int {
 	return left + right + 1
 }
 
-func recur(root *BinaryTreeNode) int {
+func recur[T comparable](root *BinaryTreeNode[T]) int {
 	if root == nil {
 		return 0
 	}

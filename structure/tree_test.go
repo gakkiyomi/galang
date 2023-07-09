@@ -18,7 +18,7 @@ import (
 
 func TestPreOder(t *testing.T) {
 
-	expected := []interface{}{3, 0, 2, 5, 4}
+	expected := []int{3, 0, 2, 5, 4}
 
 	r := NewBinaryTree(3)
 	root := r.Root
@@ -35,7 +35,7 @@ func TestPreOder(t *testing.T) {
 
 func TestMiddleOder(t *testing.T) {
 
-	expected := []interface{}{0, 2, 3, 4, 5}
+	expected := []int{0, 2, 3, 4, 5}
 
 	r := NewBinaryTree(3)
 	root := r.Root
@@ -51,8 +51,7 @@ func TestMiddleOder(t *testing.T) {
 
 func TestPostOder(t *testing.T) {
 
-	expected := []interface{}{2, 0, 7, 6, 4, 5, 3}
-
+	expected := []int{2, 0, 7, 6, 4, 5, 3}
 	r := NewBinaryTree(3)
 	root := r.Root
 	root.Left = AddNode(0)

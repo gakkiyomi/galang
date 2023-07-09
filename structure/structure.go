@@ -10,6 +10,10 @@
 
 package structure
 
+import (
+	"github.com/gakkiyomi/galang/builtin"
+)
+
 type (
 	BitMap struct {
 		bitmaps []uint64
@@ -60,15 +64,32 @@ type (
 		Items []int
 	}
 
-	//BinaryTree struct
-	BinaryTree struct {
-		Root *BinaryTreeNode
+	//AVLTree the ordinary balanced binary tree
+	AVLTree[T comparable] struct {
+		*BinaryTree[T]
+		// compare function
+		compare builtin.Comparable[T]
 	}
 
-	BinaryTreeNode struct {
-		V     interface{}
-		Left  *BinaryTreeNode
-		Right *BinaryTreeNode
+	//BalancedBinaryTree interface Definition an BalancedBinaryTree need implement methods
+	BalancedBinaryTree[T comparable] interface {
+		Insert(v T)
+		Delete(v T)
+		Search(v T) T
+		Max() T
+		Min() T
+	}
+
+	//BinaryTree struct
+	BinaryTree[T comparable] struct {
+		Root *BinaryTreeNode[T]
+	}
+
+	BinaryTreeNode[T comparable] struct {
+		V      T
+		Height int
+		Left   *BinaryTreeNode[T]
+		Right  *BinaryTreeNode[T]
 	}
 
 	node[T any] struct {
