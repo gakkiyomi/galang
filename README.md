@@ -69,6 +69,7 @@
 * Queue
 * RingBuffer
 * BitMap
+* Trie
 * BinaryTree **No guarantee of balance**
 * BalancedBinaryTree
   * AVLTree
