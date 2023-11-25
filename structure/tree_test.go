@@ -22,10 +22,10 @@ func TestPreOder(t *testing.T) {
 
 	r := NewBinaryTree(3)
 	root := r.Root
-	root.Left = AddNode(0)
-	root.Left.Right = AddNode(2)
-	root.Right = AddNode(5)
-	root.Right.Left = AddNode(4)
+	root.Left = addNode(0)
+	root.Left.Right = addNode(2)
+	root.Right = addNode(5)
+	root.Right.Left = addNode(4)
 
 	actual := r.PreOrder()
 	assert.Equal(t, true, r.IsBalanced(), "The two item should be the same.")
@@ -39,10 +39,10 @@ func TestMiddleOder(t *testing.T) {
 
 	r := NewBinaryTree(3)
 	root := r.Root
-	root.Left = AddNode(0)
-	root.Left.Right = AddNode(2)
-	root.Right = AddNode(5)
-	root.Right.Left = AddNode(4)
+	root.Left = addNode(0)
+	root.Left.Right = addNode(2)
+	root.Right = addNode(5)
+	root.Right.Left = addNode(4)
 
 	actual := r.MiddleOrder()
 
@@ -54,12 +54,12 @@ func TestPostOder(t *testing.T) {
 	expected := []int{2, 0, 7, 6, 4, 5, 3}
 	r := NewBinaryTree(3)
 	root := r.Root
-	root.Left = AddNode(0)
-	root.Left.Right = AddNode(2)
-	root.Right = AddNode(5)
-	root.Right.Left = AddNode(4)
-	root.Right.Left.Right = AddNode(6)
-	root.Right.Left.Right.Right = AddNode(7)
+	root.Left = addNode(0)
+	root.Left.Right = addNode(2)
+	root.Right = addNode(5)
+	root.Right.Left = addNode(4)
+	root.Right.Left.Right = addNode(6)
+	root.Right.Left.Right.Right = addNode(7)
 
 	actual := r.PostOrder()
 	assert.Equal(t, false, r.IsBalanced(), "The two item should be the same.")
@@ -73,10 +73,10 @@ func TestBFS(t *testing.T) {
 
 	r := NewBinaryTree(3)
 	root := r.Root
-	root.Left = AddNode(0)
-	root.Left.Right = AddNode(2)
-	root.Right = AddNode(5)
-	root.Right.Left = AddNode(4)
+	root.Left = addNode(0)
+	root.Left.Right = addNode(2)
+	root.Right = addNode(5)
+	root.Right.Left = addNode(4)
 
 	actual := r.BFS()
 	assert.Equal(t, true, r.IsBalanced(), "The two item should be the same.")

@@ -92,6 +92,18 @@ type (
 		Right  *BinaryTreeNode[T]
 	}
 
+	//Tree common tree struct
+	Tree[T comparable] struct {
+		Root *TreeNode[T]
+	}
+
+	//TreeNode common tree node struct
+	TreeNode[T comparable] struct {
+		V      T
+		Childs []*TreeNode[T]
+		Extra  any
+	}
+
 	node[T any] struct {
 		pre  *node[T]
 		v    T

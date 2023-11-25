@@ -22,7 +22,7 @@ func NewBinaryTree[T comparable](v T) *BinaryTree[T] {
 		}}
 }
 
-func AddNode[T comparable](v T) *BinaryTreeNode[T] {
+func addNode[T comparable](v T) *BinaryTreeNode[T] {
 	return &BinaryTreeNode[T]{
 		V: v,
 	}
