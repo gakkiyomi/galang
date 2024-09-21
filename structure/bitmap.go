@@ -29,11 +29,14 @@ func (self *BitMap) Clear() {
 func (self *BitMap) Add(num int) {
 	bitmap, bit := num/64, uint64(num%64)
 	//如果传进来的数超过bitmap数组的最大值，需要将对bitmap进行扩容
-	for bitmap >= len(self.bitmaps) {
-		self.bitmaps = append(self.bitmaps, 0)
+	len := len(self.bitmaps)
+	if bitmap >= len {
+		offset := bitmap - len + 1
+		self.bitmaps = append(self.bitmaps, make([]uint64, offset)...)
 	}
 	// 判断num是否已经存在bitmap中
 	if self.bitmaps[bitmap]&(1<<bit) == 0 {
+		//如果不存在，通过位或运算加入到bitmap中
 		self.bitmaps[bitmap] |= 1 << bit
 		self.len++
 	}
