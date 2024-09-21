@@ -71,6 +71,13 @@ type (
 		compare builtin.Comparable[T]
 	}
 
+	//RBTree
+	RBTree[T comparable] struct {
+		Root *RBTreeNode[T]
+		// compare function
+		compare builtin.Comparable[T]
+	}
+
 	//BalancedBinaryTree interface Definition an BalancedBinaryTree need implement methods
 	BalancedBinaryTree[T comparable] interface {
 		Insert(v T)
@@ -90,6 +97,22 @@ type (
 		Height int
 		Left   *BinaryTreeNode[T]
 		Right  *BinaryTreeNode[T]
+	}
+
+	BBTreeNodeInterface[T comparable] interface {
+		GetThis() BBTreeNodeInterface[T]
+		GetValue() T
+		GetLeft() BBTreeNodeInterface[T]
+		GetRight() BBTreeNodeInterface[T]
+	}
+
+	RBTreeNode[T comparable] struct {
+		V      T
+		IsEnd  bool
+		Color  builtin.Color
+		Left   *RBTreeNode[T]
+		Right  *RBTreeNode[T]
+		Parent *RBTreeNode[T]
 	}
 
 	//Tree common tree struct

@@ -14,8 +14,11 @@ package builtin
 type Comparable[T comparable] func(T, T) int
 
 type Direction int
+type Color int
 
 const (
 	LEFT  Direction = 0
 	RIGHT Direction = 1
+	BLACK Color     = 0
+	RED   Color     = 1
 )

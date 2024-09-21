@@ -56,17 +56,17 @@ func TestTriePrefixSearch(t *testing.T) {
 	hashTrie := NewHashTrie()
 
 	// 插入一些单词到 Trie 中
-	words := []string{"apple", "app", "apricot", "bat", "batman"}
+	words := []string{"apple", "app", "ap", "apricot", "bat", "batman"}
 	for _, word := range words {
 		trie.Insert(word)
 		hashTrie.Insert(word)
 	}
 
 	// PrefixSearch
-	assert.ElementsMatch(t, trie.PrefixSearch("ap"), []string{"app", "apple", "apricot"}, "Expected ['app', 'apricot'] for prefix 'ap'")
+	assert.ElementsMatch(t, trie.PrefixSearch("ap"), []string{"app", "ap", "apple", "apricot"}, "Expected ['app', 'apricot'] for prefix 'ap'")
 	assert.ElementsMatch(t, trie.PrefixSearch("bat"), []string{"bat", "batman"}, "Expected ['bat', 'batman'] for prefix 'bat'")
 	assert.ElementsMatch(t, trie.PrefixSearch("fang"), nil)
-	assert.ElementsMatch(t, hashTrie.PrefixSearch("ap"), []string{"app", "apple", "apricot"}, "Expected ['app', 'apricot'] for prefix 'ap'")
+	assert.ElementsMatch(t, hashTrie.PrefixSearch("ap"), []string{"app", "ap", "apple", "apricot"}, "Expected ['app', 'apricot'] for prefix 'ap'")
 	assert.ElementsMatch(t, hashTrie.PrefixSearch("bat"), []string{"bat", "batman"}, "Expected ['bat', 'batman'] for prefix 'bat'")
 	assert.ElementsMatch(t, hashTrie.PrefixSearch("fang"), nil)
 }

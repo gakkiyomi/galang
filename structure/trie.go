@@ -112,18 +112,16 @@ func (t *TrieImpl) deleteReur(word string, currentNode *TreeNode[rune], index in
 			break
 		}
 	}
-	if childNode == nil { //退出
-		return
-	}
-	t.deleteReur(word, childNode, index+1)
-	if len(childNode.Childs) == 0 {
+	if len(childNode.Childs) == 0 { //从后向前删除，最后的节点一定没有子节点
 		for i, child := range currentNode.Childs {
 			if child == childNode {
+				//从当前节点的子节点切片中去掉childNode
 				currentNode.Childs = append(currentNode.Childs[:i], currentNode.Childs[i+1:]...)
 				break
 			}
 		}
 	}
+	t.deleteReur(word, childNode, index+1)
 }
 
 func (t *HashTrie) Delete(word string) {
@@ -139,9 +137,6 @@ func deleteDfs(word string, currentNode *HashTrieNode[rune], index int) {
 	var childNode *HashTrieNode[rune]
 	if child, ok := currentNode.Childs[char]; ok {
 		childNode = child
-	}
-	if childNode == nil {
-		return
 	}
 	deleteDfs(word, childNode, index+1)
 	if len(childNode.Childs) == 0 {
@@ -187,6 +182,7 @@ func (t *HashTrie) Search(word string) (exist bool) {
 // PrefixSearch get all strings with a common prefix.
 func (t *TrieImpl) PrefixSearch(word string) []string {
 	currentNode := t.Root
+	//先过滤所有包含word的数据链
 	for _, char := range word {
 		found := false
 		// 检查当前节点的子节点是否包含当前字符

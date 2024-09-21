@@ -12,9 +12,29 @@ package structure
 
 import (
 	"math"
+	"reflect"
 
 	"github.com/gakkiyomi/galang/builtin"
 )
+
+func (node *BinaryTreeNode[T]) GetValue() (data T) {
+	if node == nil {
+		return
+	}
+	return node.V
+}
+
+func (node *BinaryTreeNode[T]) GetThis() BBTreeNodeInterface[T] {
+	return node
+}
+
+func (node *BinaryTreeNode[T]) GetLeft() BBTreeNodeInterface[T] {
+	return node.Left
+}
+
+func (node *BinaryTreeNode[T]) GetRight() BBTreeNodeInterface[T] {
+	return node.Right
+}
 
 // AVL树构造器
 func NewAVLTree[T comparable](c builtin.Comparable[T]) *AVLTree[T] {
@@ -34,12 +54,12 @@ func (self *AVLTree[T]) Delete(v T) {
 }
 
 // Search search for the specified value in the tree
-func (self *AVLTree[T]) Search(v T) (data T) {
-	node := search(self.compare, self.Root, v)
+func (self *AVLTree[T]) Search(v T) (data T, exist bool) {
+	node, exist := search(self.compare, self.Root.GetThis(), v)
 	if node == nil {
 		return
 	}
-	return node.V
+	return node.GetValue(), exist
 }
 
 // Max find the maximum or minimum value
@@ -179,17 +199,18 @@ func insertNode[T comparable](tree *AVLTree[T], v T) {
 
 }
 
-func search[T comparable](c builtin.Comparable[T], root *BinaryTreeNode[T], v T) *BinaryTreeNode[T] {
-	if root == nil {
-		return nil
+// 通过接口实现函数复用
+func search[T comparable](c builtin.Comparable[T], root BBTreeNodeInterface[T], v T) (BBTreeNodeInterface[T], bool) {
+	if root == nil || reflect.ValueOf(root).IsNil() {
+		return nil, false
 	}
-	compareRes := c(v, root.V)
+	compareRes := c(v, root.GetValue())
 	if compareRes < 0 {
-		return search[T](c, root.Left, v)
+		return search[T](c, root.GetLeft(), v)
 	} else if compareRes > 0 {
-		return search[T](c, root.Right, v)
+		return search[T](c, root.GetRight(), v)
 	} else {
-		return root
+		return root, true
 	}
 }
 
