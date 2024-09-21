@@ -14,44 +14,45 @@ func NewBitMap() *BitMap {
 	return &BitMap{}
 }
 
-func (self *BitMap) Has(num int) bool {
+func (bm *BitMap) Has(num int) bool {
 	//bitmap 是指num在bitmap数组里是第几个bitmap中: num < 64  bitmap = 0  num >= 64 bitmap =1
 	//bit 是指 num在当前bitmap 0 的二进制表示中的index值
 	bitmap, bit := num/64, uint64(num%64)
-	return bitmap < len(self.bitmaps) && (self.bitmaps[bitmap]&(1<<bit)) != 0
+	return bitmap < len(bm.bitmaps) && (bm.bitmaps[bitmap]&(1<<bit)) != 0
 }
 
-func (self *BitMap) Clear() {
-	self.bitmaps = nil
-	self.len = 0
+func (bitmap *BitMap) Clear() {
+	bitmap.bitmaps = nil
+	bitmap.len = 0
 }
 
-func (self *BitMap) Add(num int) {
+func (bm *BitMap) Add(num int) {
 	bitmap, bit := num/64, uint64(num%64)
 	//如果传进来的数超过bitmap数组的最大值，需要将对bitmap进行扩容
-	len := len(self.bitmaps)
+	len := len(bm.bitmaps)
 	if bitmap >= len {
 		offset := bitmap - len + 1
-		self.bitmaps = append(self.bitmaps, make([]uint64, offset)...)
+		bm.bitmaps = append(bm.bitmaps, make([]uint64, offset)...)
 	}
 	// 判断num是否已经存在bitmap中
-	if self.bitmaps[bitmap]&(1<<bit) == 0 {
+	if bm.bitmaps[bitmap]&(1<<bit) == 0 {
 		//如果不存在，通过位或运算加入到bitmap中
-		self.bitmaps[bitmap] |= 1 << bit
-		self.len++
+		bm.bitmaps[bitmap] |= 1 << bit
+		bm.len++
 	}
 }
 
-func (self *BitMap) Len() int {
-	return self.len
+func (bitmap *BitMap) Len() int {
+	return bitmap.len
 }
 
-func (self *BitMap) Sort(nums []int) []int {
+// Sort a array use bitmap
+func (bitmap *BitMap) Sort(nums []int) []int {
 	for _, item := range nums {
-		self.Add(item)
+		bitmap.Add(item)
 	}
 	res := make([]int, 0, len(nums))
-	for i, v := range self.bitmaps {
+	for i, v := range bitmap.bitmaps {
 		if v == 0 {
 			continue
 		}
