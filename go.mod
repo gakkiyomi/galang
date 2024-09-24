@@ -1,6 +1,6 @@
 module github.com/gakkiyomi/galang
 
-go 1.19
+go 1.23
 
 require (
 	github.com/Ullaakut/nmap v2.0.2+incompatible

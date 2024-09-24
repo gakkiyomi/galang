@@ -73,7 +73,7 @@
 * BinaryTree **No guarantee of balance**
 * BalancedBinaryTree
   * AVLTree
-  * RedBlackTree [TODO]
+  * RedBlackTree
 * Heap
   * MaxHeap
   * MinHeap

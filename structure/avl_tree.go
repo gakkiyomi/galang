@@ -103,9 +103,9 @@ func deleteNode[T comparable](c builtin.Comparable[T], root *BinaryTreeNode[T], 
 	}
 	compareRes := c(v, root.V)
 	if compareRes < 0 {
-		root.Left = deleteNode[T](c, root.Left, v)
+		root.Left = deleteNode(c, root.Left, v)
 	} else if compareRes > 0 {
-		root.Right = deleteNode[T](c, root.Right, v)
+		root.Right = deleteNode(c, root.Right, v)
 	} else {
 		if root.Left == nil || root.Right == nil {
 			var temp *BinaryTreeNode[T]
@@ -125,7 +125,7 @@ func deleteNode[T comparable](c builtin.Comparable[T], root *BinaryTreeNode[T], 
 			temp = nil
 		} else {
 			root.V = findOp[T](root.Right, builtin.LEFT)
-			root.Right = deleteNode[T](c, root.Right, root.V)
+			root.Right = deleteNode(c, root.Right, root.V)
 		}
 		if root == nil {
 			return root
@@ -186,15 +186,13 @@ func insertNode[T comparable](tree *AVLTree[T], v T) {
 	// Left Right Case
 	if balance > 1 && tree.compare(v, root.Left.V) > 0 {
 		tree.Root.Left = rotateLeft(root.Left)
-		root = rotateRight(root)
-		return
+		rotateRight(root)
 	}
 
 	// Right Left Case
 	if balance < -1 && tree.compare(v, root.Right.V) < 0 {
 		tree.Root.Right = rotateRight(root.Right)
-		root = rotateLeft(root)
-		return
+		rotateLeft(root)
 	}
 
 }

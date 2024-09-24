@@ -85,6 +85,10 @@ type (
 		Search(v T) T
 		Max() T
 		Min() T
+		RotateRight(BBTreeNodeInterface[T]) BBTreeNodeInterface[T]
+		RotateLeft(BBTreeNodeInterface[T]) BBTreeNodeInterface[T]
+		SetLeft(BBTreeNodeInterface[T])
+		SetRight(BBTreeNodeInterface[T])
 	}
 
 	//BinaryTree struct
@@ -108,7 +112,6 @@ type (
 
 	RBTreeNode[T comparable] struct {
 		V      T
-		IsEnd  bool
 		Color  builtin.Color
 		Left   *RBTreeNode[T]
 		Right  *RBTreeNode[T]
